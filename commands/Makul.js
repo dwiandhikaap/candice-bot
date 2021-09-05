@@ -8,13 +8,22 @@ const { getMakul } = require("../util/RequestHandler");
 */
 async function makul(interaction){
     const sender = interaction.user;
-    const userid = sender.id;
-    
-    const userData = await dbGetData(userid);
-    const tahunAkademik = interaction.options.getString("tahunakademik", true);
-    const buttonIdTag = new Date().getSeconds().toString() + new Date().getMilliseconds().toString();
+    const date = new Date();
+
+    const userData = await dbGetData(sender.id);
 
     let isOddSemester = true;
+    let tahunAkademik = `${date.getFullYear()/date.getFullYear()+1}`
+    tahunAkademik = interaction.options.getString("tahunakademik", true);
+
+    const buttonIdTag = date.getSeconds().toString() + date.getMilliseconds().toString();
+
+    if(!(/^\d{4}\/\d{4}$/i).test(tahunAkademik)){
+        interaction.reply(NotifEmbed({
+            desc: "Invalid academic year!"
+        }));
+        return;
+    }
 
     if(userData == null){
         interaction.reply(UserNotFound());
