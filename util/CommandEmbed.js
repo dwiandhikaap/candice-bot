@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageButton, User, MessageActionRow } = require("discord.js")
-const { ParseMakul } = require("./Parser")
+const { ParseMakul, ParseKhs } = require("./Parser")
 
 function CommandInfoEmbed(param){
     return {embeds : [{
@@ -66,10 +66,46 @@ function UserMakulEmbed(buttonIdTag, userMakulData, isOddSemester, tahunAkademik
   return {embeds : [embed], components: [buttonRow]}
 }
 
+function UserKhsEmbed(buttonIdTag, userKhsData, isOddSemester, tahunAkademik){
+  const { IpkSem, JmlSks } = userKhsData;
+  const khsParsed = ParseKhs(userKhsData);
+
+  const embed = new MessageEmbed()
+        
+        .setTitle('Info KHS')
+        .setColor("#4278f5")
+        .setFooter(`${tahunAkademik} - Semester ${isOddSemester ? "Ganjil" : "Genap"}`)
+        .setTimestamp(new Date())
+        .addFields(
+          {name: ':medal: Index Prestasi', value: `▸ **${IpkSem.toFixed(2)}** / 4.00`, inline:true},
+          {name: 'Jumlah SKS', value: `▸ **${JmlSks}** SKS`, inline:true}
+        )
+        .addField('\u200B', khsParsed);
+        
+        
+
+  const buttonRow = new MessageActionRow().addComponents(
+      new MessageButton()
+          .setStyle(isOddSemester ? 3 : 2)
+          .setLabel('Ganjil')
+          .setCustomId('oddBtn'+buttonIdTag)
+          .setDisabled(isOddSemester),
+
+      new MessageButton()
+          .setStyle(isOddSemester? 2 : 3)
+          .setLabel('Genap')
+          .setCustomId('evenBtn'+buttonIdTag)
+          .setDisabled(!isOddSemester)
+  )
+    
+  return {embeds : [embed], components: [buttonRow]}
+}
+
 module.exports = {
     CommandInfoEmbed : CommandInfoEmbed,
     NotifEmbed : NotifEmbed,
     UserNotFound : UserNotFound,
     UserProfile : UserProfile,
-    UserMakulEmbed : UserMakulEmbed
+    UserMakulEmbed : UserMakulEmbed,
+    UserKhsEmbed : UserKhsEmbed
 }

@@ -14,6 +14,7 @@ const { register } = require('../commands/Register');
 const { unreg } = require('../commands/Unreg');
 const { profile } = require('../commands/Profile');
 const { makul } = require('../commands/Makul');
+const { khs } = require('../commands/Khs');
 
 const commands = [
 	new SlashCommandBuilder()
@@ -45,7 +46,15 @@ const commands = [
         .setDescription('Show your AMIKOM subjects')
         .addStringOption(tahunAkademik => tahunAkademik
             .setName('tahunakademik')
-            .setDescription('NIM/NPM Mahasiswa')
+            .setDescription('Academic Year')
+            .setRequired(true)),
+    
+    new SlashCommandBuilder()
+        .setName('khs')
+        .setDescription('Show your AMIKOM subjects')
+        .addStringOption(tahunAkademik => tahunAkademik
+            .setName('tahunakademik')
+            .setDescription('Academic Year')
             .setRequired(true))
     ]
 	.map(command => command.toJSON());
@@ -95,6 +104,11 @@ async function interactionHandler(interaction){
 
             case 'makul':{
                 await makul(interaction);
+                break;
+            }
+
+            case 'khs':{
+                await khs(interaction);
                 break;
             }
         }
