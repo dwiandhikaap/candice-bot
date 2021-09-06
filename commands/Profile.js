@@ -1,5 +1,5 @@
 const { CommandInteraction } = require("discord.js");
-const { UserNotFound, UserProfile, NotifEmbed } = require("../util/CommandEmbed");
+const { UserNotFound, UserProfileEmbed, NotifEmbed } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
 const { getMhsData } = require("../util/RequestHandler");
 
@@ -7,10 +7,11 @@ const { getMhsData } = require("../util/RequestHandler");
 * @param {CommandInteraction} interaction User message
 */
 async function profile(interaction){
-    const sender = interaction.user;
-    const userid = sender.id;
-
+    const user = interaction.user;
+    const userid = user.id;
     const userData = await dbGetData(userid);
+
+    const commandData = {user}
 
     if(userData == null){
         interaction.reply(UserNotFound());
@@ -18,7 +19,7 @@ async function profile(interaction){
     }
 
     try{
-        var mhsData = await getMhsData(userData.nim, userData.password);
+        commandData.mhsData = await getMhsData(userData.nim, userData.password);
     }catch(err){
         interaction.reply(NotifEmbed({
             desc: "Authentication failed! Please check your username and password!"
@@ -26,7 +27,7 @@ async function profile(interaction){
         return;
     }
 
-    interaction.reply(UserProfile(mhsData));
+    interaction.reply(UserProfileEmbed(commandData));
 }
 
 module.exports = {

@@ -1,26 +1,24 @@
 const { Interaction } = require("discord.js");
-const { UserNotFound, NotifEmbed, UserKhsEmbed } = require("../util/CommandEmbed");
+const { UserNotFound, NotifEmbed, UserKhsEmbed, InvalidAcademicYear } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
+const { isInvalidYear } = require("../util/Util");
 const { getKhs } = require("../util/RequestHandler");
 
 /**
 * @param {Interaction} interaction User command
 */
 async function khs(interaction){
-    const sender = interaction.user;
+    const { user } = interaction;
     const date = new Date();
-
-    const userData = await dbGetData(sender.id);
-
-    let isOddSemester = true;
+    const userData = await dbGetData(user.id);
+    const isOddSemester = true;
     const tahunAkademik = interaction.options.getString("tahunakademik", true);
-
     const buttonIdTag = date.getSeconds().toString() + date.getMilliseconds().toString();
 
-    if(!(/^\d{4}\/\d{4}$/i).test(tahunAkademik)){
-        interaction.reply(NotifEmbed({
-            desc: "Invalid academic year!"
-        }));
+    let commandData = {interaction, user, date, userData, isOddSemester, tahunAkademik, buttonIdTag};
+
+    if(isInvalidYear(tahunAkademik)){
+        interaction.reply(InvalidAcademicYear());
         return;
     }
 
@@ -30,7 +28,7 @@ async function khs(interaction){
     }
 
     try{
-        var userKhsData = await getKhsData(userData.nim, userData.password, isOddSemester, tahunAkademik);
+        commandData.userKhsData = await getKhsData(commandData);
     }catch(err){
         interaction.reply(NotifEmbed({
             desc: "Authentication failed! Please check your username and password!"
@@ -39,16 +37,17 @@ async function khs(interaction){
     }  
 
     interaction.reply(
-        UserKhsEmbed(buttonIdTag, userKhsData, isOddSemester, tahunAkademik)
+        UserKhsEmbed(commandData)
     );
 
-    const filter = (btnInteraction) => {
-        return btnInteraction.user.id === sender.id && (btnInteraction.customId == "evenBtn"+buttonIdTag || btnInteraction.customId == "oddBtn"+buttonIdTag);
+    commandData.filter = (btnInteraction) => {
+        return btnInteraction.user.id === user.id && (btnInteraction.customId == "evenBtn"+buttonIdTag || btnInteraction.customId == "oddBtn"+buttonIdTag);
     }
-    interactionHandler(interaction, filter, buttonIdTag, userData, isOddSemester, tahunAkademik)
+    interactionHandler(commandData)
 }
 
-async function interactionHandler(interaction, filter, buttonIdTag, userData, isOddSemester, tahunAkademik){
+async function interactionHandler(param){
+    const { interaction, filter, buttonIdTag } = param;
     const collector = interaction.channel.createMessageComponentCollector({filter, max:1, time: 10000})
 
     collector.on('collect', async (buttonInteraction) => {
@@ -62,28 +61,30 @@ async function interactionHandler(interaction, filter, buttonIdTag, userData, is
         };
 
         if(buttonInteraction.first().customId === "evenBtn"+buttonIdTag){
-            isOddSemester = false;
+            param.isOddSemester = false;
         }
 
         else if(buttonInteraction.first().customId === "oddBtn"+buttonIdTag){
-            isOddSemester = true;
+            param.isOddSemester = true;
         }
         
-        const userKhsData = await getKhsData(userData.nim, userData.password, isOddSemester, tahunAkademik);
+        param.userKhsData = await getKhsData(param);
         
 
         interaction.editReply(
-            UserKhsEmbed(buttonIdTag, userKhsData, isOddSemester, tahunAkademik)
+            UserKhsEmbed(param)
         );
 
-        interactionHandler(interaction, filter, buttonIdTag, userData, isOddSemester, tahunAkademik);
+        interactionHandler(param);
     })
 }
 
-async function getKhsData(username, password, isOddSemester, tahunAkademik){
+async function getKhsData(param){
+    const { userData, isOddSemester, tahunAkademik } = param;
+    const { nim, password } = userData;
     const semester = isOddSemester ? 1 : 2;
 
-    return getKhs(username, password, semester, tahunAkademik);
+    return getKhs(nim, password, semester, tahunAkademik);
 }
 
 module.exports = {

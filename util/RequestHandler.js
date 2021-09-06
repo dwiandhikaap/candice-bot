@@ -130,7 +130,7 @@ async function getKhs(id, password, semester, tahun_akademik){
     return new Promise((resolve, reject) => {
         axios.post(url,data,requestConfigs)
         .then(res => {
-            console.log('Response: ', res.data);
+            //console.log('Response: ', res.data);
             resolve(res.data);
         })
         .catch(err => {

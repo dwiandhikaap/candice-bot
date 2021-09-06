@@ -1,9 +1,17 @@
+function isInvalidYear(year){
+  return (!((/^\d{4}\/\d{4}$/i).test(year) && 
+  (parseInt(year.split('/')[1]) - parseInt(year.split('/')[0]) === 1) && 
+  (parseInt(year.split('/')[0]) <= new Date().getFullYear())
+  ))
+}
 
 
-
-
-function ParseMakul(makulData){
+function parseMakul(makulData){
   let result = '';
+  if(Object.keys(makulData).length == 0){
+    return ':warning:  **No data found!**';
+  }
+
   for(const makul of makulData){
       const { Kode, NamaMk, JmlSks, JmlPresensiKuliah, IsHadirMID, IsHadirUAS } = makul;
 
@@ -17,22 +25,27 @@ function ParseMakul(makulData){
   return result;
 }
 
-function ParseKhs(khsData){
+function parseKhs(khsData){
   const {Khs} = khsData;
   let result = '';
+
+  if(Object.keys(Khs).length == 0){
+    return ':warning:  **No data found!**';
+  }
 
   for(const infoKhs of Khs){
       const { Kode, NamaMk, JmlSks, Nilai } = infoKhs;
 
       result += `
       **• ${NamaMk} - ${Kode}** - *${JmlSks} SKS*
-      ▸ Nilai  : **${Nilai}**
+      ▸ Nilai  : **${Nilai === null ? 'Belum ada data!': Nilai}**
       `
   }
   return result;
 }
 
 module.exports = {
-  ParseMakul : ParseMakul,
-  ParseKhs : ParseKhs
+  isInvalidYear : isInvalidYear, 
+  parseMakul : parseMakul,
+  parseKhs : parseKhs
 }

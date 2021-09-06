@@ -1,26 +1,24 @@
 const { Interaction } = require("discord.js");
-const { UserMakulEmbed, UserNotFound, NotifEmbed } = require("../util/CommandEmbed");
+const { UserMakulEmbed, UserNotFound, NotifEmbed, InvalidAcademicYear } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
+const { isInvalidYear } = require("../util/Util");
 const { getMakul } = require("../util/RequestHandler");
 
 /**
 * @param {Interaction} interaction User command
 */
 async function makul(interaction){
-    const sender = interaction.user;
+    const user = interaction.user;
     const date = new Date();
-
-    const userData = await dbGetData(sender.id);
-
-    let isOddSemester = true;
+    const userData = await dbGetData(user.id);
+    const isOddSemester = true;
     const tahunAkademik = interaction.options.getString("tahunakademik", true);
-
     const buttonIdTag = date.getSeconds().toString() + date.getMilliseconds().toString();
 
-    if(!(/^\d{4}\/\d{4}$/i).test(tahunAkademik)){
-        interaction.reply(NotifEmbed({
-            desc: "Invalid academic year!"
-        }));
+    let commandData = {interaction, user, date, userData, isOddSemester, tahunAkademik, buttonIdTag};
+
+    if(isInvalidYear(tahunAkademik)){
+        interaction.reply(InvalidAcademicYear());
         return;
     }
 
@@ -30,7 +28,7 @@ async function makul(interaction){
     }
 
      try{
-        var userMakulData = await getMakulData(userData.nim, userData.password, isOddSemester, tahunAkademik);
+        commandData.userMakulData = await getMakulData(commandData);
     }catch(err){
         interaction.reply(NotifEmbed({
             desc: "Authentication failed! Please check your username and password!"
@@ -38,17 +36,18 @@ async function makul(interaction){
         return;
     } 
     interaction.reply(
-        UserMakulEmbed(buttonIdTag, userMakulData, isOddSemester, tahunAkademik)
+        UserMakulEmbed(commandData)
     );
 
-    const filter = (btnInteraction) => {
-        return btnInteraction.user.id === sender.id && (btnInteraction.customId == "evenBtn"+buttonIdTag || btnInteraction.customId == "oddBtn"+buttonIdTag);
+    commandData.filter = (btnInteraction) => {
+        return btnInteraction.user.id === user.id && (btnInteraction.customId == "evenBtn"+buttonIdTag || btnInteraction.customId == "oddBtn"+buttonIdTag);
     }
 
-    interactionHandler(interaction, filter, buttonIdTag, userData, isOddSemester, tahunAkademik)
+    interactionHandler(commandData);
 }
 
-async function interactionHandler(interaction, filter, buttonIdTag, userData, isOddSemester, tahunAkademik){
+async function interactionHandler(param){
+    const {interaction, filter, buttonIdTag} = param;
     const collector = interaction.channel.createMessageComponentCollector({filter, max:1, time: 10000})
 
     collector.on('collect', async (buttonInteraction) => {
@@ -62,26 +61,28 @@ async function interactionHandler(interaction, filter, buttonIdTag, userData, is
         };
 
         if(buttonInteraction.first().customId === "evenBtn"+buttonIdTag){
-            isOddSemester = false;
+            param.isOddSemester = false;
         }
 
         else if(buttonInteraction.first().customId === "oddBtn"+buttonIdTag){
-            isOddSemester = true;
+            param.isOddSemester = true;
         }
         
-        const userMakulData = await getMakulData(userData.nim, userData.password, isOddSemester, tahunAkademik);
+        param.userMakulData = await getMakulData(param);
         
         interaction.editReply(
-            UserMakulEmbed(buttonIdTag, userMakulData, isOddSemester, tahunAkademik)
+            UserMakulEmbed(param)
         );
-        interactionHandler(interaction, filter, buttonIdTag, userData, isOddSemester, tahunAkademik);
+        interactionHandler(param);
     })
 }
 
-async function getMakulData(username, password, isOddSemester, tahunAkademik){
+async function getMakulData(param){
+    const {userData, isOddSemester, tahunAkademik} = param;
+    const {nim, password} = userData
     const semester = isOddSemester ? 1 : 2;
 
-    return getMakul(username, password, semester, tahunAkademik);
+    return getMakul(nim, password, semester, tahunAkademik);
 }
 
 module.exports = {
