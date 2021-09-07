@@ -1,5 +1,5 @@
 const { Interaction } = require("discord.js");
-const { UserNotFound, NotifEmbed, UserKhsEmbed, InvalidAcademicYear } = require("../util/CommandEmbed");
+const { UserNotFound, NotifEmbed, UserKhsEmbed, InvalidAcademicYear, AuthFailed } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
 const { isInvalidYear } = require("../util/Util");
 const { getKhs } = require("../util/RequestHandler");
@@ -17,11 +17,6 @@ async function khs(interaction){
 
     let commandData = {interaction, user, date, userData, isOddSemester, tahunAkademik, buttonIdTag};
 
-    if(isInvalidYear(tahunAkademik)){
-        interaction.reply(InvalidAcademicYear());
-        return;
-    }
-
     if(userData == null){
         interaction.reply(UserNotFound());
         return;
@@ -30,11 +25,14 @@ async function khs(interaction){
     try{
         commandData.userKhsData = await getKhsData(commandData);
     }catch(err){
-        interaction.reply(NotifEmbed({
-            desc: "Authentication failed! Please check your username and password!"
-        }));
+        interaction.reply(AuthFailed());
         return;
     }  
+
+    if(isInvalidYear(tahunAkademik)){
+        interaction.reply(InvalidAcademicYear());
+        return;
+    }
 
     interaction.reply(
         UserKhsEmbed(commandData)

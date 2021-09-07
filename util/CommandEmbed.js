@@ -27,7 +27,14 @@ function InvalidAcademicYear(){
 function UserNotFound(){
   return {embeds : [{
     "color": "#4278f5",
-    "description": `No account found. Register via \`/reg [NIM] [Password]\``
+    "description": `No account found. Register via \`/register [NIM] [Password]\``
+  }]}
+}
+
+function AuthFailed(){
+  return {embeds : [{
+    "color": "#4278f5",
+    "description": "Authentication failed! Please `/register` with your correct username and password!"
   }]}
 }
 
@@ -47,9 +54,9 @@ function UserProfileEmbed(commandData){
         .addFields(
           {name: "Program Studi", value: `▸ ${Prodi}`, inline: true},
           {name: "Angkatan", value: `▸ ${Angkatan}`, inline: true},
-          {name: "Status", value: `${IsAktif ? ':white_check_mark:   Aktif' : ':negative_squared_cross_mark: \u2007 Tidak Aktif'}`, inline: true}
+          {name: "Status", value: `${IsAktif ? ':white_check_mark:   Aktif' : ':negative_squared_cross_mark:   Tidak Aktif'}`, inline: true}
         )
-        .setFooter(`${user.username} ▸ ${TahunAkademik} - Semester ${Semester == 1 ? "Ganjil" : "Genap"}`)
+        .setFooter(`${TahunAkademik} - Semester ${Semester == 1 ? "Ganjil" : "Genap"}`)
         .setTimestamp(new Date());
 
   return {embeds : [embed]}
@@ -64,8 +71,8 @@ function UserMakulEmbed(param){
         .setTitle(`Mata Kuliah ▸ _**${user.username}**_`)
         .setColor("#4278f5")
         .setDescription(makulparsed)
-        .setFooter(`${tahunAkademik} - Semester ${isOddSemester ? "Ganjil" : "Genap"}`)
-        .setTimestamp(new Date());
+        .setTimestamp(new Date())
+        .setFooter(`${tahunAkademik} - Semester ${isOddSemester ? "Ganjil" : "Genap"}`);
 
   const buttonRow = new MessageActionRow().addComponents(
       new MessageButton()
@@ -93,13 +100,13 @@ function UserKhsEmbed(param){
         .setThumbnail(user.displayAvatarURL())
         .setTitle(`Info KHS ▸ _**${user.username}**_`)
         .setColor("#4278f5")
-        .setFooter(`${tahunAkademik} - Semester ${isOddSemester ? "Ganjil" : "Genap"}`)
-        .setTimestamp(new Date())
         .addFields(
           {name: ':medal: Index Prestasi', value: `▸ **${IpkSem.toFixed(2)}** / 4.00`, inline:true},
-          {name: 'Jumlah SKS', value: `▸ **${JmlSks}** SKS`, inline:true}
-        )
-        .addField('\u200B', khsparsed);
+          {name: ':books: Jumlah SKS', value: `▸ **${JmlSks}** SKS`, inline:true}
+          )
+          .addField('\u200B', khsparsed)
+          .setFooter(`${tahunAkademik} - Semester ${isOddSemester ? "Ganjil" : "Genap"}`)
+          .setTimestamp(new Date());
         
         
   const buttonRow = new MessageActionRow().addComponents(
@@ -122,19 +129,23 @@ function UserKhsEmbed(param){
 function UserTranskripEmbed(param){
   const { user, buttonIdTag, transkripData, currentPage, pages, indexRange } = param;
   const transkripParsed = parseTranskrip(transkripData, indexRange);
+  const { Ipk, JmlSks, SksWajib, SksKonsentrasi, SksPilihan } = transkripData;
 
   const embed = new MessageEmbed()
         .setThumbnail(user.displayAvatarURL())
         .setTitle(`Info Transkrip ▸ _**${user.username}**_`)
         .setColor("#4278f5")
-        .setFooter(`Page ${currentPage}/${pages} ▸ ${indexRange[0]}-${indexRange[1]}`)
-        //.setFooter(`${tahunAkademik} - Semester ${isOddSemester ? "Ganjil" : "Genap"}`)
-        .setTimestamp(new Date())
         .addFields(
-          //{name: ':medal: Index Prestasi', value: `▸ **${IpkSem.toFixed(2)}** / 4.00`, inline:true},
-          //{name: 'Jumlah SKS', value: `▸ **${JmlSks}** SKS`, inline:true}
-        )
-        .addField('\u200B', transkripParsed);
+          {name: ':medal: IPK', value: `▸ **${Ipk.toFixed(2)}** / 4.00`, inline:true},
+          {name: ':books: Jumlah SKS', value: `▸ **${JmlSks}** SKS`, inline:true},
+          {name: '\u200B', value: '\u200B', inline:true},
+          {name: ':green_book: SKS Wajib', value: `▸ **${SksWajib}** SKS`, inline:true},
+          {name: ':orange_book: SKS Konsentrasi', value: `▸ **${SksKonsentrasi}** SKS`, inline:true},
+          {name: ':bookmark: SKS Pilihan', value: `▸ **${SksPilihan}** SKS`, inline:true}
+          )
+          .addField('\u200B', transkripParsed)
+          .setFooter(`Page ${currentPage}/${pages}`)
+          .setTimestamp(new Date());
         
         
   const buttonRow = new MessageActionRow().addComponents(
@@ -158,6 +169,7 @@ module.exports = {
     CommandInfoEmbed : CommandInfoEmbed,
     NotifEmbed : NotifEmbed,
     UserNotFound : UserNotFound,
+    AuthFailed : AuthFailed,
     InvalidAcademicYear : InvalidAcademicYear,
 
     UserProfileEmbed : UserProfileEmbed,

@@ -1,9 +1,9 @@
 require('dotenv').config();
+require("./util/Commands");
 
 const Discord = require('discord.js');
 const { createCommands, interactionHandler } = require('./util/Commands');
 const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"]});
-require("./util/Commands");
 const { dbInit } = require('./util/DatabaseHandler');
 
 async function dbStart() {

@@ -57,7 +57,7 @@ function parseTranskrip(transkripData, indexRange){
       result += `
       **• ${NamaMk} - ${Kode}** - *${JmlSks} SKS*
       ▸ Nilai  : **${Nilai === null ? 'Belum ada data!': Nilai}**
-      ▸ Wajib  : **${NamaSifatMk === null ? 'Belum ada data!': NamaSifatMk}**
+      ▸ Tipe  : **${NamaSifatMk === null ? 'Belum ada data!': NamaSifatMk}**
       `
   }
   

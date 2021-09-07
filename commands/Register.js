@@ -13,20 +13,6 @@ const { dbSearch, dbInsert, dbUpdate } = require("../util/DatabaseHandler");
     const password = interaction.options.getString("password", true);;
 
     console.log(`User ${username} wants to register!`);
-    /* if(interaction.channel.type === 'GUILD_TEXT'){ 
-        interaction.channel.send(`<@${sender.id}> Check your DM!`);
-    } */
-    
-    
-    /* if(false){
-        interaction.reply(CommandInfoEmbed({
-            title : "register",
-            desc : "Link your discord account to an AMIKOM Account.\nPlease use DM instead of public channel!",
-            syntax : `${process.env.BOT_PREFIX} reg [NIM] [Password]`,
-            example : `${process.env.BOT_PREFIX} reg 20.61.6969 72727`
-        }));
-        return;
-    } */
     
     const isUserFound = await dbSearch(userid);
 

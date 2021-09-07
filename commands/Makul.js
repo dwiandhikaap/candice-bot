@@ -1,5 +1,5 @@
 const { Interaction } = require("discord.js");
-const { UserMakulEmbed, UserNotFound, NotifEmbed, InvalidAcademicYear } = require("../util/CommandEmbed");
+const { UserMakulEmbed, UserNotFound, NotifEmbed, InvalidAcademicYear, AuthFailed } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
 const { isInvalidYear } = require("../util/Util");
 const { getMakul } = require("../util/RequestHandler");
@@ -18,11 +18,6 @@ async function makul(interaction){
     // reminder, reconsider why i need date here
     let commandData = {interaction, user, date, userData, isOddSemester, tahunAkademik, buttonIdTag};
 
-    if(isInvalidYear(tahunAkademik)){
-        interaction.reply(InvalidAcademicYear());
-        return;
-    }
-
     if(userData == null){
         interaction.reply(UserNotFound());
         return;
@@ -31,11 +26,15 @@ async function makul(interaction){
      try{
         commandData.userMakulData = await getMakulData(commandData);
     }catch(err){
-        interaction.reply(NotifEmbed({
-            desc: "Authentication failed! Please check your username and password!"
-        }));
+        interaction.reply(AuthFailed());
         return;
     } 
+
+    if(isInvalidYear(tahunAkademik)){
+        interaction.reply(InvalidAcademicYear());
+        return;
+    }
+
     interaction.reply(
         UserMakulEmbed(commandData)
     );

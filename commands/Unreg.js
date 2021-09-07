@@ -13,10 +13,16 @@ async function unreg(interaction){
     const isRegistered = await dbSearch(userid);
 
     if(isRegistered){
-        await dbDelete(userid);
-        interaction.reply(NotifEmbed({
-            desc: `Successfully unregistered \`${username}\`'s account!`
-        }))
+        try {
+            await dbDelete(userid);
+            interaction.reply(NotifEmbed({
+                desc: `Successfully unregistered \`${username}\`'s account!`
+            }))
+        } catch (error) {
+            interaction.reply(NotifEmbed({
+                desc: `Failed to unregister \`${username}\`'s account!\nSeems like our database has problems.`
+            }))
+        }
     }
     else{
         interaction.reply(UserNotFound());
