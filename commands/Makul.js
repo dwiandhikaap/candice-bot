@@ -15,6 +15,7 @@ async function makul(interaction){
     const tahunAkademik = interaction.options.getString("tahunakademik", true);
     const buttonIdTag = date.getSeconds().toString() + date.getMilliseconds().toString();
 
+    // reminder, reconsider why i need date here
     let commandData = {interaction, user, date, userData, isOddSemester, tahunAkademik, buttonIdTag};
 
     if(isInvalidYear(tahunAkademik)){

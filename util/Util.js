@@ -5,7 +5,6 @@ function isInvalidYear(year){
   ))
 }
 
-
 function parseMakul(makulData){
   let result = '';
   if(Object.keys(makulData).length == 0){
@@ -44,8 +43,30 @@ function parseKhs(khsData){
   return result;
 }
 
+function parseTranskrip(transkripData, indexRange){
+  const { Transkrip } = transkripData;
+  let result = '';
+
+  if(Object.keys(Transkrip).length == 0){
+    return ':warning:  **No data found!**';
+  }
+
+  for(let i = indexRange[0]; i < indexRange[1]; i++){
+      const { Kode, NamaMk, JmlSks, Nilai, NamaSifatMk } = Transkrip[i];
+
+      result += `
+      **• ${NamaMk} - ${Kode}** - *${JmlSks} SKS*
+      ▸ Nilai  : **${Nilai === null ? 'Belum ada data!': Nilai}**
+      ▸ Wajib  : **${NamaSifatMk === null ? 'Belum ada data!': NamaSifatMk}**
+      `
+  }
+  
+  return result;
+}
+
 module.exports = {
   isInvalidYear : isInvalidYear, 
   parseMakul : parseMakul,
-  parseKhs : parseKhs
+  parseKhs : parseKhs,
+  parseTranskrip : parseTranskrip
 }

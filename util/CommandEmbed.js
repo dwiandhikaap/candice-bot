@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js")
-const { parseMakul, parseKhs } = require("./Util")
+const { parseMakul, parseKhs, parseTranskrip } = require("./Util")
 
 function CommandInfoEmbed(param){
     return {embeds : [{
@@ -119,6 +119,41 @@ function UserKhsEmbed(param){
   return {embeds : [embed], components: [buttonRow]}
 }
 
+function UserTranskripEmbed(param){
+  const { user, buttonIdTag, transkripData, currentPage, pages, indexRange } = param;
+  const transkripParsed = parseTranskrip(transkripData, indexRange);
+
+  const embed = new MessageEmbed()
+        .setThumbnail(user.displayAvatarURL())
+        .setTitle(`Info Transkrip ▸ _**${user.username}**_`)
+        .setColor("#4278f5")
+        .setFooter(`Page ${currentPage}/${pages} ▸ ${indexRange[0]}-${indexRange[1]}`)
+        //.setFooter(`${tahunAkademik} - Semester ${isOddSemester ? "Ganjil" : "Genap"}`)
+        .setTimestamp(new Date())
+        .addFields(
+          //{name: ':medal: Index Prestasi', value: `▸ **${IpkSem.toFixed(2)}** / 4.00`, inline:true},
+          //{name: 'Jumlah SKS', value: `▸ **${JmlSks}** SKS`, inline:true}
+        )
+        .addField('\u200B', transkripParsed);
+        
+        
+  const buttonRow = new MessageActionRow().addComponents(
+      new MessageButton()
+          .setStyle(1)
+          .setLabel('Prev. Page')
+          .setCustomId('prevBtn'+buttonIdTag)
+          .setDisabled(currentPage == 1),
+
+      new MessageButton()
+          .setStyle(1)
+          .setLabel('Next Page')
+          .setCustomId('nextBtn'+buttonIdTag)
+          .setDisabled(currentPage == pages)
+  )
+    
+  return {embeds : [embed], components: [buttonRow]}
+}
+
 module.exports = {
     CommandInfoEmbed : CommandInfoEmbed,
     NotifEmbed : NotifEmbed,
@@ -127,5 +162,6 @@ module.exports = {
 
     UserProfileEmbed : UserProfileEmbed,
     UserMakulEmbed : UserMakulEmbed,
-    UserKhsEmbed : UserKhsEmbed
+    UserKhsEmbed : UserKhsEmbed,
+    UserTranskripEmbed : UserTranskripEmbed
 }

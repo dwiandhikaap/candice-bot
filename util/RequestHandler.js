@@ -5,7 +5,8 @@ const paths = {
     dataMhs: "/api/personal/init_data_mhs",
     jadwal: "/api/personal/jadwal_kuliah",
     makul: "/api/presensi/list_mk",
-    khs: "/api/krs/khs"
+    khs: "/api/krs/khs",
+    transkrip: "/api/krs/transkrip"
 }
 
 const hosts = {
@@ -140,11 +141,32 @@ async function getKhs(id, password, semester, tahun_akademik){
     })
 }
 
+async function getTranskrip(id, password){
+    const access_token = await login(id,password);
+    const url = `${hosts['default']}${paths['transkrip']}`;
+    const data = `npm=${id}`;
 
+    const requestConfigs = configs['default'];
+    requestConfigs.headers.Authorization = `${access_token}`;
+    requestConfigs.headers["Content-Length"] = Buffer.byteLength(data);
+
+    return new Promise((resolve, reject) => {
+        axios.post(url,data,requestConfigs)
+        .then(res => {
+            //console.log('Response: ', res.data);
+            resolve(res.data);
+        })
+        .catch(err => {
+            //console.log('Error: ', err);
+            reject(err)
+        })
+    })
+}
 
 module.exports = {
     login : login,
     getMhsData : getMhsData,
     getMakul : getMakul,
-    getKhs : getKhs
+    getKhs : getKhs,
+    getTranskrip : getTranskrip
 }

@@ -1,11 +1,10 @@
+const { Interaction } = require("discord.js");
+
 /**
-* @param {Message} msg User message
+* @param {Interaction} interaction - User interaction
 */
-async function funcname(msg){
-    const args = msg.content.split(" ");
-    const sender = msg.author;
-    const username = sender.username;
-    const userid = sender.id;
+async function funcname(interaction){
+    const user = interaction.user;
 }
 
 module.exports = {
