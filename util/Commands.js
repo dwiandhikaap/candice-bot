@@ -17,8 +17,13 @@ const { makul } = require('../commands/Makul');
 const { khs } = require('../commands/Khs');
 const { transkrip } = require('../commands/Transkrip');
 const { presensi } = require('../commands/Presensi');
+const { info } = require('../commands/Info');
 
 const commands = [
+    new SlashCommandBuilder()
+        .setName('info')
+        .setDescription('Show this bot\'s info'),
+
 	new SlashCommandBuilder()
         .setName('help')
         .setDescription('Show commands help menu'),
@@ -91,11 +96,16 @@ async function createCommands(guilds){
 /**
 * @param {Interaction} interaction User message
 */
-async function interactionHandler(interaction){
+async function interactionHandler(interaction, client){
     if (interaction.isCommand()){
         const { commandName } = interaction;
 
         switch(commandName){
+            case 'info':{
+                await info(interaction, client);
+                break;
+            }
+
             case 'help':{
                 await help(interaction);
                 break;

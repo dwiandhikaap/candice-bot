@@ -27,7 +27,7 @@ client.on('ready', async () => {
 })
 
 client.on('interactionCreate', async interaction => {
-	await interactionHandler(interaction);
+	await interactionHandler(interaction, client);
 });
 
 

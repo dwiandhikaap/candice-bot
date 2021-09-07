@@ -180,6 +180,39 @@ function UserTranskripEmbed(param){
   return {embeds : [embed], components: [buttonRow]}
 }
 
+function InfoEmbed(nodeJsVersion, discordJsVersion, botVersion, uptime, clientAvatarUrl){
+  const embed = new MessageEmbed()
+        .setThumbnail(clientAvatarUrl)
+        .setColor("#4278f5")
+        .addFields({
+          "name": `About Candice`,
+          "value": `[candice](https://gitfront.io/r/user-6093614/0784dcf390539e7ac2345a1e5ece5fed49904d8c/candice-bot/) is a Discord Bot that was built to allow users to access AMIKOM One features without having to own an Android device. This project is currently a private repository maintained by [siveroo](https://github.com/siveroo).`
+        },
+        {
+          "name": `Bot Version`,
+          "value": botVersion,
+          "inline": true
+        },
+        {
+          "name": `Node.js Version`,
+          "value": nodeJsVersion,
+          "inline": true
+        },
+        {
+          "name": `Discord.js Version`,
+          "value": discordJsVersion,
+          "inline": true
+        },
+        {
+          "name": `Uptime`,
+          "value": uptime
+        }
+        )
+        .setFooter(`made with 🍆💦by siveroo`, 'https://avatars.githubusercontent.com/u/53227252?v=4')
+
+  return {embeds : [embed]}
+}
+
 module.exports = {
     CommandInfoEmbed : CommandInfoEmbed,
     NotifEmbed : NotifEmbed,
@@ -187,7 +220,8 @@ module.exports = {
     AuthFailed : AuthFailed,
     InvalidAcademicYear : InvalidAcademicYear,
     InvalidToken : InvalidToken,
-
+    
+    InfoEmbed : InfoEmbed,
     PresensiEmbed : PresensiEmbed,
     UserProfileEmbed : UserProfileEmbed,
     UserMakulEmbed : UserMakulEmbed,
