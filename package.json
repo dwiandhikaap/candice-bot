@@ -1,4 +1,10 @@
 {
+  "name": "candice-discord-bot",
+  "description": "Discord bot named candice",
+  "version": "1.0.0",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": "node index.js"
   },
