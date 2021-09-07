@@ -1,6 +1,6 @@
 # Candice
 
-Candice is a Discord Bot that was built to allow users to access AMIKOM One features without having to own an Android device. This project is currently a private repository maintained by [siveroo](https://github.com/siveroo/). If Amikom approves this project, I could always make this repository public.
+Candice is a Discord Bot that was built to allow users to access AMIKOM One features without having to own an Android device. This project is currently a private repository maintained by [siveroo](https://github.com/siveroo/).
 
 ## Setup
 
