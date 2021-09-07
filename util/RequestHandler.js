@@ -2,20 +2,22 @@ const axios = require("axios");
 
 const paths = {
     auth: "/api/auth/mhs",
+    login: `/login`,
     dataMhs: "/api/personal/init_data_mhs",
     jadwal: "/api/personal/jadwal_kuliah",
     makul: "/api/presensi/list_mk",
     khs: "/api/krs/khs",
-    transkrip: "/api/krs/transkrip"
+    transkrip: "/api/krs/transkrip",
+    presensi: "/api/v1.3/presensi_mobile/validate_ticket"
 }
 
 const hosts = {
-    login: `/login`,
     auth: `http://${process.env.HOSTNAME}:${process.env.PORT}`,
     default: `http://mhsmobile.amikom.ac.id`
 }
 
 const configs = {
+    //unused but let me keep it here 🤡
     auth: {
         headers: {
             'User-Agent': 'okhttp/4.2.1',
@@ -39,7 +41,7 @@ const configs = {
 }
 
 async function login(id, password){
-    const url = `${hosts['default']}${hosts['login']}`;
+    const url = `${hosts['default']}${paths['login']}`;
     const data = `username=${id}&keyword=${password}`;
     const authConfig = configs['default'];
     authConfig.headers["Content-Length"] = Buffer.byteLength(data);
@@ -55,7 +57,8 @@ async function login(id, password){
     })
 }
 
-/* async function _authUser(id, password){
+// Simulates AMIKOM One mobile auth, i guess (?)
+async function authUser(id, password){
     const url = `${hosts['auth']}${paths['auth']}`;
     const data = JSON.stringify({
         password: password,
@@ -64,17 +67,17 @@ async function login(id, password){
     const authConfig = configs['auth'];
     authConfig.headers["Content-Length"] = Buffer.byteLength(data);
 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         axios.post(url,data,authConfig)
         .then(res => {
             //console.log(res.data.access_token);
             resolve(res.data.access_token);
         })
         .catch(err => {
-            console.log('Auth Error: ', err.data);
+            reject('Auth Error: ', err.data);
         })
     })
-}  */
+}
 
 async function getMhsData(id, password){
     const access_token = await login(id,password);
@@ -163,10 +166,36 @@ async function getTranskrip(id, password){
     })
 }
 
+async function sendPresensi(payload){
+    const access_token = await login(id,password);
+    const url = `${hosts['auth']}${paths['presensi']}`;
+    const data = JSON.stringify({
+        data: payload
+    });
+
+    const requestConfigs = configs['default'];
+    requestConfigs.headers.Authorization = `${access_token}`;
+    requestConfigs.headers["Content-Length"] = Buffer.byteLength(data);
+
+    return new Promise((resolve, reject) => {
+        axios.post(url,data,requestConfigs)
+        .then(res => {
+            console.log('Response: ', res.data);
+            resolve(res.data);
+        })
+        .catch(err => {
+            console.log('Error: ', err);
+            reject(err)
+        })
+    })
+}
+
 module.exports = {
     login : login,
+    authUser : authUser,
     getMhsData : getMhsData,
     getMakul : getMakul,
     getKhs : getKhs,
-    getTranskrip : getTranskrip
+    getTranskrip : getTranskrip,
+    sendPresensi : sendPresensi
 }

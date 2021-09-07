@@ -24,6 +24,13 @@ function InvalidAcademicYear(){
     }]}
 }
 
+function InvalidToken(){
+  return {embeds : [{
+    "color": "#4278f5",
+    "description": `Invalid token!. Valid example : \`c0Ck5\``
+  }]}
+}
+
 function UserNotFound(){
   return {embeds : [{
     "color": "#4278f5",
@@ -34,7 +41,15 @@ function UserNotFound(){
 function AuthFailed(){
   return {embeds : [{
     "color": "#4278f5",
-    "description": "Authentication failed! Please `/register` with your correct username and password!"
+    "description": "Authentication failed! Please do `/register` with your correct username and password!"
+  }]}
+}
+
+function PresensiEmbed(isSuccess){
+  return {embeds : [{
+    "color": "#4278f5",
+    "description": isSuccess ? "Presensi Sukses ✅" : "Presensi Gagal ❌",
+    "timestamp": new Date()
   }]}
 }
 
@@ -54,7 +69,7 @@ function UserProfileEmbed(commandData){
         .addFields(
           {name: "Program Studi", value: `▸ ${Prodi}`, inline: true},
           {name: "Angkatan", value: `▸ ${Angkatan}`, inline: true},
-          {name: "Status", value: `${IsAktif ? ':white_check_mark:   Aktif' : ':negative_squared_cross_mark:   Tidak Aktif'}`, inline: true}
+          {name: "Status", value: `${IsAktif ? '✅   Aktif' : '❌   Tidak Aktif'}`, inline: true}
         )
         .setFooter(`${TahunAkademik} - Semester ${Semester == 1 ? "Ganjil" : "Genap"}`)
         .setTimestamp(new Date());
@@ -171,7 +186,9 @@ module.exports = {
     UserNotFound : UserNotFound,
     AuthFailed : AuthFailed,
     InvalidAcademicYear : InvalidAcademicYear,
+    InvalidToken : InvalidToken,
 
+    PresensiEmbed : PresensiEmbed,
     UserProfileEmbed : UserProfileEmbed,
     UserMakulEmbed : UserMakulEmbed,
     UserKhsEmbed : UserKhsEmbed,

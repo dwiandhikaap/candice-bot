@@ -16,6 +16,7 @@ const { profile } = require('../commands/Profile');
 const { makul } = require('../commands/Makul');
 const { khs } = require('../commands/Khs');
 const { transkrip } = require('../commands/Transkrip');
+const { presensi } = require('../commands/Presensi');
 
 const commands = [
 	new SlashCommandBuilder()
@@ -60,7 +61,15 @@ const commands = [
     
     new SlashCommandBuilder()
         .setName('transkrip')
-        .setDescription('Show your AMIKOM transcript')
+        .setDescription('Show your AMIKOM transcript'),
+
+    new SlashCommandBuilder()
+        .setName('presensi')
+        .setDescription('Submit your lecture presence')
+        .addStringOption(token => token
+            .setName('token')
+            .setDescription('Token Presensi')
+            .setRequired(true)),
     ]
 	.map(command => command.toJSON());
 
@@ -119,6 +128,11 @@ async function interactionHandler(interaction){
 
             case 'transkrip':{
                 await transkrip(interaction);
+                break;
+            }
+
+            case 'presensi':{
+                await presensi(interaction);
                 break;
             }
         }

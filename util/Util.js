@@ -5,6 +5,10 @@ function isInvalidYear(year){
   ))
 }
 
+function isInvalidToken(token){
+  return token.length != 5;
+}
+
 function parseMakul(makulData){
   let result = '';
   if(Object.keys(makulData).length == 0){
@@ -66,6 +70,7 @@ function parseTranskrip(transkripData, indexRange){
 
 module.exports = {
   isInvalidYear : isInvalidYear, 
+  isInvalidToken : isInvalidToken, 
   parseMakul : parseMakul,
   parseKhs : parseKhs,
   parseTranskrip : parseTranskrip
