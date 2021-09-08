@@ -66,6 +66,11 @@ async function authUser(id, password){
     const authConfig = configs['auth'];
     authConfig.headers["Content-Length"] = Buffer.byteLength(data);
 
+    console.log(url)
+    console.log(data)
+    console.log(authConfig)
+    return;
+
     return new Promise((resolve, reject) => {
         axios.post(url,data,authConfig)
         .then(res => {
