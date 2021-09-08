@@ -69,11 +69,11 @@ async function authUser(id, password){
     return new Promise((resolve, reject) => {
         axios.post(url,data,authConfig)
         .then(res => {
-            console.log(res.data.access_token);
+            //console.log(res.data.access_token);
             resolve(res.data.access_token);
         })
         .catch(err => {
-            console.log(err.data);
+            //console.log(err.data);
             reject('Auth Error: ', err.data);
         })
     })
