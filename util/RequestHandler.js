@@ -12,7 +12,7 @@ const paths = {
 }
 
 const hosts = {
-    auth: `http://${process.env.HOSTNAME}:${process.env.PORT}`,
+    auth: `http://${process.env.AUTH_HOSTNAME}:${process.env.AUTH_PORT}`,
     default: `http://mhsmobile.amikom.ac.id`
 }
 
@@ -69,7 +69,6 @@ async function authUser(id, password){
     console.log(url)
     console.log(data)
     console.log(authConfig)
-    return;
 
     return new Promise((resolve, reject) => {
         axios.post(url,data,authConfig)
