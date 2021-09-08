@@ -73,6 +73,7 @@ async function authUser(id, password){
             resolve(res.data.access_token);
         })
         .catch(err => {
+            console.log(err.data);
             reject('Auth Error: ', err.data);
         })
     })
