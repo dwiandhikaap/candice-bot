@@ -20,8 +20,7 @@ const configs = {
     //unused but let me keep it here 🤡
     auth: {
         headers: {
-            'User-Agent': 'okhttp/4.2.1',
-            'Authorization' : '',
+            'User-Agent': 'okhttp/5.0.0-alpha.2',
             'Content-Type': 'application/json',
             'Content-Length': '',
             'Connection' : 'Keep-Alive',
