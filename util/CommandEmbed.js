@@ -27,7 +27,7 @@ function InvalidAcademicYear(){
 function InvalidToken(){
   return {embeds : [{
     "color": "#4278f5",
-    "description": `Invalid token!. Valid example : \`c0Ck5\``
+    "description": `Invalid token!. Valid example : \`abC12\``
   }]}
 }
 
@@ -208,7 +208,7 @@ function InfoEmbed(nodeJsVersion, discordJsVersion, botVersion, uptime, clientAv
           "value": uptime
         }
         )
-        .setFooter(`made with 🍆💦by siveroo`, 'https://avatars.githubusercontent.com/u/53227252?v=4')
+        .setFooter(`made by siveroo`, 'https://avatars.githubusercontent.com/u/53227252?v=4')
 
   return {embeds : [embed]}
 }

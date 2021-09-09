@@ -14,7 +14,7 @@ async function clientStart() {
     await client.login(process.env.CLIENT_TOKEN);
 
     //client.user.setAvatar('./avatar.jpg');
-    client.user.setPresence({ activities: [{ name: 'with ur mom' }], status: 'online' });
+    client.user.setPresence({ activities: [{ name: '/help' }], status: 'online' });
 }
 
 client.on('ready', async () => {
