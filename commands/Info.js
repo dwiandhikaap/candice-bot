@@ -10,7 +10,7 @@ const { InfoEmbed } = require("../util/CommandEmbed");
 async function info(interaction, client){
     const nodeJsVersion = process.version;
     const discordJsVersion = discordJsPackage.version;
-    const botVersion = appPackage;
+    const { version: botVersion } = appPackage;
     const uptime = secondsToDhms(process.uptime());
     const clientAvatarUrl = client.user.displayAvatarURL();
 

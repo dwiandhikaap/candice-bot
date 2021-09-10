@@ -18,7 +18,7 @@ const { khs } = require('../commands/Khs');
 const { transkrip } = require('../commands/Transkrip');
 const { presensi } = require('../commands/Presensi');
 const { info } = require('../commands/Info');
-const { Client } = require('discord.js');
+const { Client, Guild } = require('discord.js');
 
 const commands = [
     new SlashCommandBuilder()
@@ -79,15 +79,18 @@ const commands = [
     ]
 	.map(command => command.toJSON());
 
+/**
+* @param {Guild[]} guilds Guilds Collection
+*/
 async function createCommands(guilds){
     for(const guild of guilds){
         try{
             await rest.put(
-                Routes.applicationGuildCommands(clientId, guild),
+                Routes.applicationGuildCommands(clientId, guild.id),
                 {body: commands},
             );
             
-            console.log(guild, "- OK!");
+            console.log(`${guild.name} [${guild.id}] - OK!`);
         } catch(err){
             console.log(err);
         }

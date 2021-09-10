@@ -18,7 +18,7 @@ client.on('ready', async () => {
     console.log(`candice logged in as ${client.user.tag}!`);
 
     // todo last : deprecate guilds command, make it global in release - siveroo 9/2/2021
-    const guilds = client.guilds.cache.map(guild => guild.id);
+    const guilds = client.guilds.cache.map(guild => guild);
 
     await createCommands(guilds);
 })
