@@ -1,4 +1,3 @@
-const { CommandInteraction } = require("discord.js");
 const { UserNotFound, UserProfileEmbed, NotifEmbed } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
 const { getMhsData } = require("../util/RequestHandler");

@@ -66,9 +66,9 @@ async function authUser(id, password){
     const authConfig = configs['auth'];
     authConfig.headers["Content-Length"] = Buffer.byteLength(data);
 
-    console.log(url)
-    console.log(data)
-    console.log(authConfig)
+    //console.log(url)
+    //console.log(data)
+    //console.log(authConfig)
 
     return new Promise((resolve, reject) => {
         axios.post(url,data,authConfig)
@@ -184,11 +184,11 @@ async function sendPresensi(payload){
     return new Promise((resolve, reject) => {
         axios.post(url,data,requestConfigs)
         .then(res => {
-            console.log('Response: ', res.data);
+            //console.log('Response: ', res.data);
             resolve(res.data);
         })
         .catch(err => {
-            console.log('Error: ', err);
+            //console.log('Error: ', err);
             reject(err)
         })
     })

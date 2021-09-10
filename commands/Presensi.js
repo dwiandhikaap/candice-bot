@@ -1,4 +1,3 @@
-const { CommandInteraction } = require("discord.js");
 const { UserNotFound, InvalidToken, PresensiEmbed, AuthFailed } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
 const { generatePresensiPayload } = require("../util/PresensiPayload");

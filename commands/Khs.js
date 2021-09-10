@@ -1,11 +1,10 @@
-const { Interaction } = require("discord.js");
-const { UserNotFound, NotifEmbed, UserKhsEmbed, InvalidAcademicYear, AuthFailed } = require("../util/CommandEmbed");
+const { UserNotFound, UserKhsEmbed, InvalidAcademicYear, AuthFailed } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
 const { isInvalidYear } = require("../util/Util");
 const { getKhs } = require("../util/RequestHandler");
 
 /**
-* @param {Interaction} interaction User command
+* @param {CommandInteraction} interaction User command
 */
 async function khs(interaction){
     const { user } = interaction;

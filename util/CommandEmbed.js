@@ -208,7 +208,7 @@ function InfoEmbed(nodeJsVersion, discordJsVersion, botVersion, uptime, clientAv
           "value": uptime
         }
         )
-        .setFooter(`made by siveroo`, 'https://avatars.githubusercontent.com/u/53227252?v=4')
+        .setFooter(`Made by siveroo`, 'https://avatars.githubusercontent.com/u/53227252?v=4')
 
   return {embeds : [embed]}
 }

@@ -1,5 +1,4 @@
-const { CommandInteraction } = require("discord.js");
-const { NotifEmbed, CommandInfoEmbed } = require("../util/CommandEmbed");
+const { NotifEmbed } = require("../util/CommandEmbed");
 const { dbSearch, dbInsert, dbUpdate } = require("../util/DatabaseHandler");
 
 /**
@@ -12,7 +11,7 @@ const { dbSearch, dbInsert, dbUpdate } = require("../util/DatabaseHandler");
     const nim = interaction.options.getString("nim", true);
     const password = interaction.options.getString("password", true);;
 
-    console.log(`User ${username} wants to register!`);
+    //console.log(`User ${username} wants to register!`);
     
     const isUserFound = await dbSearch(userid);
 

@@ -1,5 +1,6 @@
 const { CommandInteraction, Client } = require("discord.js");
 const discordJsPackage = require("discord.js/package.json");
+const appPackage = require("../package.json")
 const { InfoEmbed } = require("../util/CommandEmbed");
 
 /**
@@ -9,7 +10,7 @@ const { InfoEmbed } = require("../util/CommandEmbed");
 async function info(interaction, client){
     const nodeJsVersion = process.version;
     const discordJsVersion = discordJsPackage.version;
-    const botVersion = process.env.CLIENT_VER;
+    const botVersion = appPackage;
     const uptime = secondsToDhms(process.uptime());
     const clientAvatarUrl = client.user.displayAvatarURL();
 

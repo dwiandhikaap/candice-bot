@@ -6,11 +6,8 @@ const { createCommands, interactionHandler } = require('./util/Commands');
 const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"]});
 const { dbInit } = require('./util/DatabaseHandler');
 
-async function dbStart() {
-    await dbInit();
-};
-
 async function clientStart() {
+    await dbInit();
     await client.login(process.env.CLIENT_TOKEN);
 
     //client.user.setAvatar('./avatar.jpg');
@@ -18,7 +15,7 @@ async function clientStart() {
 }
 
 client.on('ready', async () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+    console.log(`candice logged in as ${client.user.tag}!`);
 
     // todo last : deprecate guilds command, make it global in release - siveroo 9/2/2021
     const guilds = client.guilds.cache.map(guild => guild.id);
@@ -30,7 +27,5 @@ client.on('interactionCreate', async interaction => {
 	await interactionHandler(interaction, client);
 });
 
-
-dbStart();
 clientStart();
 

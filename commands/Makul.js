@@ -1,11 +1,10 @@
-const { Interaction } = require("discord.js");
-const { UserMakulEmbed, UserNotFound, NotifEmbed, InvalidAcademicYear, AuthFailed } = require("../util/CommandEmbed");
+const { UserMakulEmbed, UserNotFound, InvalidAcademicYear, AuthFailed } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
 const { isInvalidYear } = require("../util/Util");
 const { getMakul } = require("../util/RequestHandler");
 
 /**
-* @param {Interaction} interaction User command
+* @param {CommandInteraction} interaction User command
 */
 async function makul(interaction){
     const user = interaction.user;
@@ -15,8 +14,7 @@ async function makul(interaction){
     const tahunAkademik = interaction.options.getString("tahunakademik", true);
     const buttonIdTag = date.getSeconds().toString() + date.getMilliseconds().toString();
 
-    // reminder, reconsider why i need date here
-    let commandData = {interaction, user, date, userData, isOddSemester, tahunAkademik, buttonIdTag};
+    let commandData = {interaction, user, userData, isOddSemester, tahunAkademik, buttonIdTag};
 
     if(userData == null){
         interaction.reply(UserNotFound());

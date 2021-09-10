@@ -5,7 +5,7 @@ const clientId = process.env.CLIENT_ID;
 
 const { Routes } = require('discord-api-types/v9');
 const { REST } = require('@discordjs/rest');
-const { SlashCommandBuilder, SlashCommandStringOption } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const rest = new REST({ version: '9' }).setToken(clientToken);
 
@@ -18,6 +18,7 @@ const { khs } = require('../commands/Khs');
 const { transkrip } = require('../commands/Transkrip');
 const { presensi } = require('../commands/Presensi');
 const { info } = require('../commands/Info');
+const { Client } = require('discord.js');
 
 const commands = [
     new SlashCommandBuilder()
@@ -95,6 +96,7 @@ async function createCommands(guilds){
 
 /**
 * @param {Interaction} interaction User message
+* @param {Client} client This bot's client object
 */
 async function interactionHandler(interaction, client){
     if (interaction.isCommand()){

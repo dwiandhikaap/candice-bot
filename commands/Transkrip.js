@@ -1,10 +1,9 @@
-const { Interaction } = require("discord.js");
 const { UserTranskripEmbed, UserNotFound, AuthFailed } = require("../util/CommandEmbed");
 const { dbGetData } = require('../util/DatabaseHandler')
 const { getTranskrip } = require('../util/RequestHandler')
 
 /**
-* @param {Interaction} interaction - User interaction
+* @param {CommandInteraction} interaction - User interaction
 */
 async function transkrip(interaction){
     const user = interaction.user;
