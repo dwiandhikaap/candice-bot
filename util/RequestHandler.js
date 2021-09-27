@@ -185,9 +185,14 @@ async function sendPresensi(userData, payload){
     const access_token = await authUser(nim,password);
 
     const url = `${hosts['auth']}${paths['presensi']}`;
-    const data = JSON.stringify({
+
+    // Code below doesn't work on Heroku somehow
+
+    /* const data = JSON.stringify({
         data: payload
-    });
+    }); */
+
+    const data = payload;
 
     let requestConfigs = configs['presensi'];
     requestConfigs.headers.Authorization = `Bearer ${access_token}`;
