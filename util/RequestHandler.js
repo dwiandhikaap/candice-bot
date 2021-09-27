@@ -36,6 +36,16 @@ const configs = {
             'Connection' : 'Keep-Alive',
             'Accept-Encoding' : 'gzip'
         }
+    },
+
+    presensi : {
+        headers: {
+            'User-Agent': '@m!k0mXv=#neMob!le',
+            'Content-Type': 'application/json',
+            'Content-Length': '',
+            'Connection' : 'Keep-Alive',
+            'Accept-Encoding' : 'gzip',
+        }
     }
 }
 
@@ -138,11 +148,11 @@ async function getKhs(id, password, semester, tahun_akademik){
     return new Promise((resolve, reject) => {
         axios.post(url,data,requestConfigs)
         .then(res => {
-            //console.log('Response: ', res.data);
+            console.log('Response: ', res);
             resolve(res.data);
         })
         .catch(err => {
-            //console.log('Error: ', err);
+            console.log('Error: ', err);
             reject(err)
         })
     })
@@ -170,16 +180,20 @@ async function getTranskrip(id, password){
     })
 }
 
-async function sendPresensi(payload){
-    const access_token = await login(id,password);
+async function sendPresensi(userData, payload){
+    const {nim, password} = userData;
+    const access_token = await authUser(nim,password);
+
     const url = `${hosts['auth']}${paths['presensi']}`;
     const data = JSON.stringify({
         data: payload
     });
 
-    const requestConfigs = configs['default'];
-    requestConfigs.headers.Authorization = `${access_token}`;
+    let requestConfigs = configs['presensi'];
+    requestConfigs.headers.Authorization = `Bearer ${access_token}`;
     requestConfigs.headers["Content-Length"] = Buffer.byteLength(data);
+
+    //console.log(requestConfigs);
 
     return new Promise((resolve, reject) => {
         axios.post(url,data,requestConfigs)
@@ -188,7 +202,7 @@ async function sendPresensi(payload){
             resolve(res.data);
         })
         .catch(err => {
-            //console.log('Error: ', err);
+            console.log('Error: ', err);
             reject(err)
         })
     })
