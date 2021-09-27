@@ -37,7 +37,7 @@ async function presensi(interaction){
         interaction.reply(PresensiEmbed(true))
         return;
     }catch(err){
-        //console.log(err);
+        console.log(err);
         interaction.reply(PresensiEmbed(false))
         return;
     }

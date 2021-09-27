@@ -148,11 +148,11 @@ async function getKhs(id, password, semester, tahun_akademik){
     return new Promise((resolve, reject) => {
         axios.post(url,data,requestConfigs)
         .then(res => {
-            console.log('Response: ', res);
+            //console.log('Response: ', res);
             resolve(res.data);
         })
         .catch(err => {
-            console.log('Error: ', err);
+            //console.log('Error: ', err);
             reject(err)
         })
     })
@@ -193,12 +193,12 @@ async function sendPresensi(userData, payload){
     requestConfigs.headers.Authorization = `Bearer ${access_token}`;
     requestConfigs.headers["Content-Length"] = Buffer.byteLength(data);
 
-    //console.log(requestConfigs);
+    console.log(requestConfigs);
 
     return new Promise((resolve, reject) => {
         axios.post(url,data,requestConfigs)
         .then(res => {
-            //console.log('Response: ', res.data);
+            console.log('Response: ', res.data);
             resolve(res.data);
         })
         .catch(err => {
