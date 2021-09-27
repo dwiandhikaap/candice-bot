@@ -201,7 +201,7 @@ async function sendPresensi(userData, payload){
     console.log(requestConfigs);
 
     return new Promise((resolve, reject) => {
-        axios.post(url,payload,requestConfigs)
+        axios.post(url,{data: payload},requestConfigs)
         .then(res => {
             console.log('Response: ', res.data);
             resolve(res.data);
