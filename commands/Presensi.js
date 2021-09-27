@@ -12,7 +12,6 @@ async function presensi(interaction){
     const token = interaction.options.getString('token', true);
     const userData = await dbGetData(id);
 
-    
     if(userData == null){
         interaction.reply(UserNotFound());
         return;
@@ -41,8 +40,6 @@ async function presensi(interaction){
         interaction.reply(PresensiEmbed(false))
         return;
     }
-    
-    return;
 }
 
 module.exports = {

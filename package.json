@@ -1,7 +1,7 @@
 {
   "name": "candice-bot",
   "description": "Discord bot named candice",
-  "version": "1.04",
+  "version": "1.05",
   "engines": {
     "node": "16.x"
   },

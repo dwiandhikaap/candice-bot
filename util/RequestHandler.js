@@ -188,26 +188,29 @@ async function sendPresensi(userData, payload){
 
     // Code below doesn't work on Heroku somehow
 
-    /* const data = JSON.stringify({
+    /* 
+    const data = JSON.stringify({
         data: payload
-    }); */
-
-    //const data = payload;
+    }); 
+    */
+    const data = {
+        data: payload
+    }; 
 
     let requestConfigs = configs['presensi'];
     requestConfigs.headers.Authorization = `Bearer ${access_token}`;
-    requestConfigs.headers["Content-Length"] = Buffer.byteLength(payload);
+    requestConfigs.headers["Content-Length"] = Buffer.byteLength(JSON.stringify(data));
 
     console.log(requestConfigs);
 
     return new Promise((resolve, reject) => {
-        axios.post(url,{data: payload},requestConfigs)
+        axios.post(url,data,requestConfigs)
         .then(res => {
-            console.log('Response: ', res.data);
+            //console.log('Response: ', res.data);
             resolve(res.data);
         })
         .catch(err => {
-            console.log('Error: ', err);
+            //console.log('Error: ', err);
             reject(err)
         })
     })
