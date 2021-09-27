@@ -41,7 +41,6 @@ const configs = {
     presensi : {
         headers: {
             'User-Agent': '@m!k0mXv=#neMob!le',
-            'Content-Type': 'application/json',
             'Content-Length': '',
             'Connection' : 'Keep-Alive',
             'Accept-Encoding' : 'gzip',
