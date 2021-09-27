@@ -41,6 +41,7 @@ const configs = {
     presensi : {
         headers: {
             'User-Agent': '@m!k0mXv=#neMob!le',
+            'Content-Type': 'application/json',
             'Content-Length': '',
             'Connection' : 'Keep-Alive',
             'Accept-Encoding' : 'gzip',
@@ -191,7 +192,7 @@ async function sendPresensi(userData, payload){
         data: payload
     }); */
 
-    const data = payload;
+    //const data = payload;
 
     let requestConfigs = configs['presensi'];
     requestConfigs.headers.Authorization = `Bearer ${access_token}`;
@@ -200,7 +201,7 @@ async function sendPresensi(userData, payload){
     console.log(requestConfigs);
 
     return new Promise((resolve, reject) => {
-        axios.post(url,data,requestConfigs)
+        axios.post(url,{data: payload},requestConfigs)
         .then(res => {
             console.log('Response: ', res.data);
             resolve(res.data);
