@@ -193,20 +193,17 @@ async function sendPresensi(userData, payload){
         data: payload
     }); 
     */
-    const data = {
-        data: payload
-    }; 
 
     let requestConfigs = configs['presensi'];
     requestConfigs.headers.Authorization = `Bearer ${access_token}`;
-    requestConfigs.headers["Content-Length"] = Buffer.byteLength(JSON.stringify(data));
+    requestConfigs.headers["Content-Length"] = Buffer.byteLength(payload);
 
     console.log(requestConfigs);
 
     return new Promise((resolve, reject) => {
-        axios.post(url,data,requestConfigs)
+        axios.post(url,{data: payload},requestConfigs)
         .then(res => {
-            //console.log('Response: ', res.data);
+            console.log('Response: ', res.data);
             resolve(res.data);
         })
         .catch(err => {
