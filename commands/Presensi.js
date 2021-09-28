@@ -33,13 +33,14 @@ async function presensi(interaction){
 
     try{
         await sendPresensi(userData, payload);
-        interaction.reply(PresensiEmbed(true))
-        return;
     }catch(err){
-        console.log(err);
-        interaction.reply(PresensiEmbed(false))
+        //console.log(err);
+        interaction.reply(PresensiEmbed(false));
         return;
     }
+
+    interaction.reply(PresensiEmbed(true))
+    return;
 }
 
 module.exports = {
