@@ -31,16 +31,15 @@ async function presensi(interaction){
     
     const payload = generatePresensiPayload(userData.nim, token, process.env.SECRET_MESSAGE, process.env.SECRET_KEY);
 
+    let isSuccess = false;
     try{
         await sendPresensi(userData, payload);
+        isSuccess = true;
     }catch(err){
-        //console.log(err);
-        interaction.reply(PresensiEmbed(false));
-        return;
+        console.log(err);
     }
-
-    interaction.reply(PresensiEmbed(true))
-    return;
+    
+    interaction.reply(PresensiEmbed(isSuccess));
 }
 
 module.exports = {
