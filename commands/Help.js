@@ -5,7 +5,7 @@ const { NotifEmbed } = require("../util/CommandEmbed");
 * @param {CommandInteraction} interaction User message
 */
 async function help(interaction){
-    interaction.reply(NotifEmbed({
+    await interaction.reply(NotifEmbed({
         title: "Commands",
         desc: "Use commands below to learn more\n\
                `info` `help` `register` `unreg` `profile`\n\

@@ -12,14 +12,14 @@ async function transkrip(interaction){
     const buttonIdTag = date.getSeconds().toString() + date.getMilliseconds().toString();
 
     if(userData == null){
-        interaction.reply(UserNotFound());
+        await (UserNotFound());
         return;
     }
 
     try{
         var transkripData = await getTranskrip(userData.nim, userData.password);
     } catch(err) {
-        interaction.reply(AuthFailed());
+        await interaction.reply(AuthFailed());
         return;
     }
 
@@ -34,7 +34,7 @@ async function transkrip(interaction){
 
     let commandData = {interaction, filter, user, buttonIdTag, transkripData, dataCount, currentPage, pages, indexRange};
 
-    interaction.reply(UserTranskripEmbed(commandData));
+    await interaction.reply(UserTranskripEmbed(commandData));
     interactionHandler(commandData);
 }
 
@@ -44,12 +44,12 @@ async function interactionHandler(param){
     const collector = interaction.channel.createMessageComponentCollector({filter, max: 1, time: 10000});
 
     collector.on('collect', async (buttonInteraction) => {
-        buttonInteraction.deferUpdate();
+        await buttonInteraction.deferUpdate();
     })
 
     collector.on('end', async (buttonInteraction) => {
         if(buttonInteraction.first() == undefined){
-            interaction.editReply({components: []})
+            await interaction.editReply({components: []})
             return;
         }
 
@@ -62,7 +62,7 @@ async function interactionHandler(param){
 
         param.indexRange = [(param.currentPage-1)*5,Math.min(param.currentPage*5,dataCount)];
 
-        interaction.editReply(
+        await interaction.editReply(
             UserTranskripEmbed(param)
         );
         interactionHandler(param);

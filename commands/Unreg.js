@@ -14,17 +14,17 @@ async function unreg(interaction){
     if(isRegistered){
         try {
             await dbDelete(userid);
-            interaction.reply(NotifEmbed({
+            await interaction.reply(NotifEmbed({
                 desc: `Successfully unregistered \`${username}\`'s account!`
             }))
         } catch (error) {
-            interaction.reply(NotifEmbed({
+            await interaction.reply(NotifEmbed({
                 desc: `Failed to unregister \`${username}\`'s account!\nSeems like our database has problems.`
             }))
         }
     }
     else{
-        interaction.reply(UserNotFound());
+        await interaction.reply(UserNotFound());
     }
 }
 

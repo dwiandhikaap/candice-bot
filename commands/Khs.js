@@ -17,23 +17,23 @@ async function khs(interaction){
     let commandData = {interaction, user, date, userData, isOddSemester, tahunAkademik, buttonIdTag};
 
     if(userData == null){
-        interaction.reply(UserNotFound());
+        await interaction.reply(UserNotFound());
         return;
     }
 
     try{
         commandData.userKhsData = await getKhsData(commandData);
     }catch(err){
-        interaction.reply(AuthFailed());
+        await interaction.reply(AuthFailed());
         return;
     }  
 
     if(isInvalidYear(tahunAkademik)){
-        interaction.reply(InvalidAcademicYear());
+        await interaction.reply(InvalidAcademicYear());
         return;
     }
 
-    interaction.reply(
+    await interaction.reply(
         UserKhsEmbed(commandData)
     );
 
@@ -48,12 +48,12 @@ async function interactionHandler(param){
     const collector = interaction.channel.createMessageComponentCollector({filter, max:1, time: 10000})
 
     collector.on('collect', async (buttonInteraction) => {
-        buttonInteraction.deferUpdate();
+        await buttonInteraction.deferUpdate();
     })
 
     collector.on('end', async (buttonInteraction) => {
         if(buttonInteraction.first() == undefined){
-            interaction.editReply({components: []});
+            await interaction.editReply({components: []});
             return;
         };
 
@@ -68,7 +68,7 @@ async function interactionHandler(param){
         param.userKhsData = await getKhsData(param);
         
 
-        interaction.editReply(
+        await interaction.editReply(
             UserKhsEmbed(param)
         );
 

@@ -15,7 +15,7 @@ async function info(interaction, client){
     const clientAvatarUrl = client.user.displayAvatarURL();
 
     const reply = InfoEmbed(nodeJsVersion, discordJsVersion, botVersion, uptime, clientAvatarUrl);
-    interaction.reply(reply);
+    await interaction.reply(reply);
 }
 
 // i stole this code

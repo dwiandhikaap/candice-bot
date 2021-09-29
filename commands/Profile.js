@@ -13,20 +13,20 @@ async function profile(interaction){
     const commandData = {user}
 
     if(userData == null){
-        interaction.reply(UserNotFound());
+        await interaction.reply(UserNotFound());
         return;
     }
 
     try{
         commandData.mhsData = await getMhsData(userData.nim, userData.password);
     }catch(err){
-        interaction.reply(NotifEmbed({
+        await interaction.reply(NotifEmbed({
             desc: "Authentication failed! Please check your username and password!"
         }));
         return;
     }
 
-    interaction.reply(UserProfileEmbed(commandData));
+    await interaction.reply(UserProfileEmbed(commandData));
 }
 
 module.exports = {

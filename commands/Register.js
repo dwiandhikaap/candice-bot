@@ -16,13 +16,13 @@ const { dbSearch, dbInsert, dbUpdate } = require("../util/DatabaseHandler");
     const isUserFound = await dbSearch(userid);
 
     if(isUserFound){
-        interaction.reply(NotifEmbed({
+        await interaction.reply(NotifEmbed({
             desc : `Successfully updated \`${username}\`\'s account!`
         }))
         dbUpdate(userid, nim, password);
     }
     else{
-        interaction.reply(NotifEmbed({
+        await interaction.reply(NotifEmbed({
             desc : `Successfully linked \`${username}\`\'s account!`
         }))
         dbInsert(userid, nim, password);

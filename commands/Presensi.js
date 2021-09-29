@@ -1,4 +1,4 @@
-const { UserNotFound, InvalidToken, PresensiEmbed, AuthFailed } = require("../util/CommandEmbed");
+const { UserNotFound, InvalidToken, PresensiEmbed, AuthFailed, CommandInfoEmbed } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
 const { generatePresensiPayload } = require("../util/PresensiPayload");
 const { sendPresensi, authUser } = require("../util/RequestHandler");
@@ -13,19 +13,19 @@ async function presensi(interaction){
     const userData = await dbGetData(id);
 
     if(userData == null){
-        interaction.reply(UserNotFound());
+        await interaction.reply(UserNotFound());
         return;
     }
 
     try{
         await authUser(userData.nim, userData.password);
     }catch(err){
-        interaction.reply(AuthFailed());
+        await interaction.reply(AuthFailed());
         return;
     } 
     
     if(isInvalidToken(token)){
-        interaction.reply(InvalidToken());
+        await interaction.reply(InvalidToken());
         return;
     }
     
@@ -36,10 +36,16 @@ async function presensi(interaction){
         await sendPresensi(userData, payload);
         isSuccess = true;
     }catch(err){
-        console.log(err);
+        const user = interaction.user;
+        console.log(user.username, err.response.data);
     }
     
-    interaction.reply(PresensiEmbed(isSuccess));
+    try{
+        await interaction.reply(PresensiEmbed(isSuccess));
+    }catch(err){
+        const user = interaction.user;
+        console.log(user.username, err);
+    }
 }
 
 module.exports = {
