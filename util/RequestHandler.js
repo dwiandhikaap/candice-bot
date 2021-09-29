@@ -189,7 +189,7 @@ async function sendPresensi(userData, payload){
     // Code below doesn't work on Heroku somehow
 
     
-    const data = JSON.stringify({
+    const data = ({
         data: payload
     }); 
     
