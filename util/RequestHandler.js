@@ -196,7 +196,7 @@ async function sendPresensi(userData, payload){
 
     let requestConfigs = configs['presensi'];
     requestConfigs.headers.Authorization = `Bearer ${access_token}`;
-    requestConfigs.headers["Content-Length"] = Buffer.byteLength(data);
+    requestConfigs.headers["Content-Length"] = Buffer.byteLength(JSON.stringify(data));
 
     //console.log(requestConfigs);
 
