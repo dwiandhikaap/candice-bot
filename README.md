@@ -21,6 +21,7 @@ Use commands below from your Discord App
 - `/khs`
 - `/transkrip`
 - `/presensi`
+- `/togglepresensichannel`
 
 ## Contributing
 *no.*
