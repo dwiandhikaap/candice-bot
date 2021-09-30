@@ -9,7 +9,7 @@ const client = new MongoClient(uri, {
 });
 
 var db = client.db("user_db");
-var collection = db.collection("credential");
+var credentials = db.collection("credential");
 
 async function dbInit(){
     await client.connect();
@@ -22,7 +22,7 @@ async function dbClose(){
 async function dbGetData(userid){
     const key = hashUserId(userid,process.env.KEYSALT);
     const id = hashUserId(userid,process.env.IDSALT);
-    const userData = await collection.findOne({"userid" : id})
+    const userData = await credentials.findOne({"userid" : id})
 
     if(userData){
         userData.nim = decrypt(key, userData.nim);
@@ -43,7 +43,7 @@ async function dbSearch(id){
 
 async function dbInsert(id, nim, password){
     const key = hashUserId(id,process.env.KEYSALT);
-    await collection.insertOne({
+    await credentials.insertOne({
         "userid" : hashUserId(id,process.env.IDSALT),
         "nim" : encrypt(key,nim),
         "password" : encrypt(key,password)
@@ -53,7 +53,7 @@ async function dbInsert(id, nim, password){
 async function dbUpdate(userid, nim, password){
     const key = hashUserId(userid,process.env.KEYSALT);
     const id = hashUserId(userid,process.env.IDSALT);
-    await collection.replaceOne({"userid" : id} ,{
+    await credentials.replaceOne({"userid" : id} ,{
         "userid" : id,
         "nim" : encrypt(key,nim),
         "password" : encrypt(key,password)
@@ -62,18 +62,20 @@ async function dbUpdate(userid, nim, password){
 
 async function dbDelete(id){
     // Just in case there are duplicates, so people don't sue me
-    await collection.deleteMany({
+    await credentials.deleteMany({
         "userid" : hashUserId(id,process.env.IDSALT)
     });
 }
 
 module.exports = {
+    db : db,
+
     dbInit : dbInit,
     dbClose : dbClose,
     dbGetData : dbGetData,
     dbSearch : dbSearch,
     dbInsert : dbInsert,
     dbUpdate : dbUpdate,
-    dbDelete : dbDelete
+    dbDelete : dbDelete,
 }
 
