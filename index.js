@@ -5,9 +5,12 @@ const Discord = require('discord.js');
 const { createCommands, interactionHandler } = require('./util/Commands');
 const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"]});
 const { dbInit } = require('./util/DatabaseHandler');
+const { dbLoadChannel } = require('./util/DatabasePresensi');
+const { messageHandler } = require('./commands/PresensiChannelHandler');
 
 async function clientStart() {
     await dbInit();
+    await dbLoadChannel();
     await client.login(process.env.CLIENT_TOKEN);
 
     //client.user.setAvatar('./avatar.jpg');
@@ -21,6 +24,10 @@ client.on('ready', async () => {
     const guilds = client.guilds.cache.map(guild => guild);
 
     await createCommands(guilds);
+})
+
+client.on('messageCreate', async(message) => {
+    await messageHandler(message);
 })
 
 client.on('interactionCreate', async interaction => {
