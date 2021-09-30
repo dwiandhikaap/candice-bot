@@ -76,7 +76,6 @@ const salt = (str) =>{
     }
 
     const result = bruh + "-" + i;
-    console.log(result);
     return result;
 }
 
