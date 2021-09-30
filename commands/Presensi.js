@@ -1,4 +1,4 @@
-const { UserNotFound, InvalidToken, PresensiEmbed, AuthFailed, CommandInfoEmbed } = require("../util/CommandEmbed");
+const { UserNotFound, InvalidToken, PresensiEmbed, AuthFailed } = require("../util/CommandEmbed");
 const { dbGetData } = require("../util/DatabaseHandler");
 const { generatePresensiPayload } = require("../util/PresensiPayload");
 const { sendPresensi, authUser } = require("../util/RequestHandler");
