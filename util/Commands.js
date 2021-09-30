@@ -9,6 +9,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const rest = new REST({ version: '9' }).setToken(clientToken);
 
+const { Client, Guild } = require('discord.js');
+
 const { help } = require('../commands/Help');
 const { register } = require('../commands/Register');
 const { unreg } = require('../commands/Unreg');
@@ -18,7 +20,7 @@ const { khs } = require('../commands/Khs');
 const { transkrip } = require('../commands/Transkrip');
 const { presensi } = require('../commands/Presensi');
 const { info } = require('../commands/Info');
-const { Client, Guild } = require('discord.js');
+const { togglePresensiChannel } = require('../commands/TogglePresensiChannel');
 
 const commands = [
     new SlashCommandBuilder()
@@ -76,6 +78,10 @@ const commands = [
             .setName('token')
             .setDescription('Token Presensi')
             .setRequired(true)),
+
+    new SlashCommandBuilder()
+        .setName('togglepresensichannel')
+        .setDescription('Toggle a channel\'s presence channel status'),
     ]
 	.map(command => command.toJSON());
 
@@ -148,6 +154,11 @@ async function interactionHandler(interaction, client){
 
             case 'presensi':{
                 await presensi(interaction);
+                break;
+            }
+
+            case 'togglepresensichannel':{
+                await togglePresensiChannel(interaction);
                 break;
             }
         }
