@@ -9,7 +9,7 @@ async function help(interaction){
         title: "Commands",
         desc: "Use commands below to learn more\n\
                `info` `help` `register` `unreg` `profile`\n\
-               `khs` `makul` `transkrip` `presensi`\
+               `khs` `makul` `transkrip` `presensi` `togglepresensichannel`\
         "
     }))
 }
