@@ -36,11 +36,11 @@ const commands = [
         .setDescription('Link your discord account to an AMIKOM account')
         .addStringOption(nim => nim
             .setName('nim')
-            .setDescription('NIM/NPM Mahasiswa')
+            .setDescription('NIM/NPM Mahasiswa (Example: 20.61.6969)')
             .setRequired(true))
         .addStringOption(password => password
             .setName('password')
-            .setDescription('Password Mahasiswa')
+            .setDescription('Password Mahasiswa (Example: 69420)')
             .setRequired(true)),
 
     new SlashCommandBuilder()
@@ -56,7 +56,7 @@ const commands = [
         .setDescription('Show your AMIKOM subjects')
         .addStringOption(tahunAkademik => tahunAkademik
             .setName('tahunakademik')
-            .setDescription('Academic Year')
+            .setDescription('Academic Year (Example: 2020/2021)')
             .setRequired(true)),
     
     new SlashCommandBuilder()
@@ -64,7 +64,7 @@ const commands = [
         .setDescription('Show your AMIKOM Khs (Kartu Hasil Studi)')
         .addStringOption(tahunAkademik => tahunAkademik
             .setName('tahunakademik')
-            .setDescription('Academic Year')
+            .setDescription('Academic Year (Example: 2020/2021)')
             .setRequired(true)),
     
     new SlashCommandBuilder()
@@ -76,7 +76,7 @@ const commands = [
         .setDescription('Submit your lecture presence')
         .addStringOption(token => token
             .setName('token')
-            .setDescription('Token Presensi')
+            .setDescription('Token Presensi (Example: abC12)')
             .setRequired(true)),
 
     new SlashCommandBuilder()
