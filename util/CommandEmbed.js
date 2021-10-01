@@ -185,26 +185,26 @@ function InfoEmbed(nodeJsVersion, discordJsVersion, botVersion, uptime, clientAv
         .setThumbnail(clientAvatarUrl)
         .setColor("#4278f5")
         .addFields({
-          "name": `About Candice`,
+          "name": `📝 About Candice`,
           "value": `[candice](https://gitfront.io/r/user-6093614/0784dcf390539e7ac2345a1e5ece5fed49904d8c/candice-bot/) is a Discord Bot that was built to allow users to access AMIKOM One features without having to own an Android device. This project is currently a private repository maintained by [siveroo](https://github.com/siveroo).`
         },
         {
-          "name": `Bot Version`,
+          "name": `🤖 Bot Version`,
           "value": botVersion,
           "inline": true
         },
         {
-          "name": `Node.js Version`,
+          "name": `<:nodejs:893466618217238539> Node.js Version`,
           "value": nodeJsVersion,
           "inline": true
         },
         {
-          "name": `Discord.js Version`,
+          "name": `<:discordjs:893466628703010876> Discord.js Version`,
           "value": discordJsVersion,
           "inline": true
         },
         {
-          "name": `Uptime`,
+          "name": `🕘 Uptime`,
           "value": uptime
         }
         )
