@@ -1,5 +1,5 @@
 const { NotifEmbed, UserNotFound } = require("../util/CommandEmbed");
-const { dbSearch, dbDelete } = require("../util/DatabaseHandler");
+const { dbSearch, dbDelete } = require("../util/DatabaseHandler/UserAuthHandler");
 
 /**
 * @param {CommandInteraction} interaction User message

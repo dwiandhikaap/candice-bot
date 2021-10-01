@@ -1,4 +1,4 @@
-const { db } = require("./DatabaseHandler");
+const { db } = require("./MainDatabase");
 
 const channelCollection = db.collection("presensiChannels");
 

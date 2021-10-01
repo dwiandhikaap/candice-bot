@@ -1,5 +1,5 @@
 const { UserNotFound, UserProfileEmbed, NotifEmbed } = require("../util/CommandEmbed");
-const { dbGetData } = require("../util/DatabaseHandler");
+const { dbGetData } = require("../util/DatabaseHandler/UserAuthHandler");
 const { getMhsData } = require("../util/RequestHandler");
 
 /**

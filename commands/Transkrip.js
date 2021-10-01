@@ -1,5 +1,5 @@
 const { UserTranskripEmbed, UserNotFound, AuthFailed } = require("../util/CommandEmbed");
-const { dbGetData } = require('../util/DatabaseHandler')
+const { dbGetData } = require('../util/DatabaseHandler/UserAuthHandler')
 const { getTranskrip } = require('../util/RequestHandler')
 
 /**

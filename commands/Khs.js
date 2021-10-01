@@ -1,5 +1,5 @@
 const { UserNotFound, UserKhsEmbed, InvalidAcademicYear, AuthFailed } = require("../util/CommandEmbed");
-const { dbGetData } = require("../util/DatabaseHandler");
+const { dbGetData } = require("../util/DatabaseHandler/UserAuthHandler");
 const { isInvalidYear } = require("../util/Util");
 const { getKhs } = require("../util/RequestHandler");
 

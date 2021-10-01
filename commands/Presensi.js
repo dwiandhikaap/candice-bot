@@ -1,5 +1,5 @@
 const { UserNotFound, InvalidToken, PresensiEmbed, AuthFailed } = require("../util/CommandEmbed");
-const { dbGetData } = require("../util/DatabaseHandler");
+const { dbGetData } = require("../util/DatabaseHandler/UserAuthHandler");
 const { generatePresensiPayload } = require("../util/PresensiPayload");
 const { sendPresensi, authUser } = require("../util/RequestHandler");
 const { isInvalidToken } = require("../util/Util");

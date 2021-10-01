@@ -1,7 +1,7 @@
 const { Message } = require("discord.js");
 const { AuthFailed } = require("../util/CommandEmbed");
-const { dbGetData } = require("../util/DatabaseHandler");
-const { dbRetrievePresensiChannels } = require("../util/DatabasePresensi");
+const { dbGetData } = require("../util/DatabaseHandler/UserAuthHandler");
+const { dbRetrievePresensiChannels } = require("../util/DatabaseHandler/PresensiChannelHandler");
 const { generatePresensiPayload } = require("../util/PresensiPayload");
 const { authUser, sendPresensi } = require("../util/RequestHandler");
 const { isInvalidToken } = require("../util/Util");
@@ -12,11 +12,15 @@ let cachedChannelIds = []
 * @param {Message} message
 */
 async function messageHandler(message) {
-    if(message.author.bot){
+    const author = message.author;
+    const id = author.id
+    const username = author.username;
+    const msgContent = message.content;
+    const channelId = message.channelId;
+
+    if(author.bot || isInvalidToken(msgContent)){
         return;
     }
-
-    const channelId = message.channelId;
 
     if(!cachedChannelIds.includes(channelId)){
         cachedChannelIds = await dbRetrievePresensiChannels();
@@ -26,17 +30,9 @@ async function messageHandler(message) {
         return;
     }
 
-    const id = message.author.id
-    const username = message.author.username;
-    const msgContent = message.content;
     const userData = await dbGetData(id);
 
     if(userData == null){
-        return;
-    }
-
-    if(isInvalidToken(msgContent)){
-        await message.react("❌");
         return;
     }
 

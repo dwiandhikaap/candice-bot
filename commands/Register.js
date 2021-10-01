@@ -1,5 +1,5 @@
 const { NotifEmbed } = require("../util/CommandEmbed");
-const { dbSearch, dbInsert, dbUpdate } = require("../util/DatabaseHandler");
+const { dbSearch, dbInsert, dbUpdate } = require("../util/DatabaseHandler/UserAuthHandler");
 
 /**
 * @param {CommandInteraction} interaction User message

@@ -4,8 +4,8 @@ require("./util/Commands");
 const Discord = require('discord.js');
 const { createCommands, interactionHandler } = require('./util/Commands');
 const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"]});
-const { dbInit } = require('./util/DatabaseHandler');
-const { dbLoadChannel } = require('./util/DatabasePresensi');
+const { dbInit } = require('./util/DatabaseHandler/MainDatabase');
+const { dbLoadChannel } = require('./util/DatabaseHandler/PresensiChannelHandler');
 const { messageHandler } = require('./commands/PresensiChannelHandler');
 
 async function clientStart() {

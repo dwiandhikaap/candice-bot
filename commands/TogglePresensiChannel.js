@@ -1,7 +1,7 @@
 const { CommandInteraction } = require("discord.js");
 const { Permissions } = require("discord.js");
 const { NotifEmbed } = require("../util/CommandEmbed");
-const { dbTogglePresensiChannel } = require("../util/DatabasePresensi");
+const { dbTogglePresensiChannel } = require("../util/DatabaseHandler/PresensiChannelHandler");
 
 /**
 * @param {CommandInteraction} interaction - User interaction

@@ -1,33 +1,18 @@
-const { MongoClient } = require("mongodb");
-const { encrypt, hashUserId, decrypt } = require("./Encryption");
+const { encrypt, hashUserId, decrypt } = require("../Encryption");
+const { db } = require("./MainDatabase");
 
-const uri = process.env.DB_URI;
-        
-const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-var db = client.db("user_db");
 var credentials = db.collection("credential");
-
-async function dbInit(){
-    await client.connect();
-}
-
-async function dbClose(){
-    await client.close();
-}
 
 async function dbGetData(userid){
     const key = hashUserId(userid,process.env.KEYSALT);
     const id = hashUserId(userid,process.env.IDSALT);
-    const userData = await credentials.findOne({"userid" : id})
+    const userData = await credentials.findOne({"userid" : id});
 
     if(userData){
         userData.nim = decrypt(key, userData.nim);
         userData.password = decrypt(key, userData.password);
     };
+
     return userData;
 }
 
@@ -68,10 +53,6 @@ async function dbDelete(id){
 }
 
 module.exports = {
-    db : db,
-
-    dbInit : dbInit,
-    dbClose : dbClose,
     dbGetData : dbGetData,
     dbSearch : dbSearch,
     dbInsert : dbInsert,

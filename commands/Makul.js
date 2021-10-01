@@ -1,5 +1,5 @@
 const { UserMakulEmbed, UserNotFound, InvalidAcademicYear, AuthFailed } = require("../util/CommandEmbed");
-const { dbGetData } = require("../util/DatabaseHandler");
+const { dbGetData } = require("../util/DatabaseHandler/UserAuthHandler");
 const { isInvalidYear } = require("../util/Util");
 const { getMakul } = require("../util/RequestHandler");
 
