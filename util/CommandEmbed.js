@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js")
-const { parseMakul, parseKhs, parseTranskrip } = require("./Util")
+const { parseMakul, parseKhs, parseTranskrip, generateJadwalField } = require("./Util")
 
 function CommandInfoEmbed(param){
     return {embeds : [{
@@ -180,7 +180,7 @@ function UserTranskripEmbed(param){
   return {embeds : [embed], components: [buttonRow]}
 }
 
-function InfoEmbed(nodeJsVersion, discordJsVersion, botVersion, uptime, clientAvatarUrl){
+function InfoEmbed(nodeJsVersion, discordJsVersion, mongoDBInfo, botInfo, clientAvatarUrl){
   const embed = new MessageEmbed()
         .setThumbnail(clientAvatarUrl)
         .setColor("#4278f5")
@@ -189,8 +189,8 @@ function InfoEmbed(nodeJsVersion, discordJsVersion, botVersion, uptime, clientAv
           "value": `[candice](https://gitfront.io/r/user-6093614/0784dcf390539e7ac2345a1e5ece5fed49904d8c/candice-bot/) is a Discord Bot that was built to allow users to access AMIKOM One features without having to own an Android device. This project is currently a private repository maintained by [siveroo](https://github.com/siveroo).`
         },
         {
-          "name": `🤖 Bot Version`,
-          "value": botVersion,
+          "name": `🤖 Bot Info`,
+          "value": `Version: ${botInfo.version}\nUptime: ${botInfo.uptime}`,
           "inline": true
         },
         {
@@ -203,15 +203,19 @@ function InfoEmbed(nodeJsVersion, discordJsVersion, botVersion, uptime, clientAv
           "value": discordJsVersion,
           "inline": true
         },
-        {
-          "name": `🕘 Uptime`,
-          "value": uptime
+				{
+          "name": `<:mongodb:895298927459442808> MongoDB Server Info`,
+          "value": `Version: ${mongoDBInfo.version}\nUptime: ${mongoDBInfo.uptime}\n`,
+					"inline": true
         }
         )
         .setFooter(`Made by siveroo`, 'https://avatars.githubusercontent.com/u/53227252?v=4')
 
   return {embeds : [embed]}
 }
+
+
+
 
 module.exports = {
     CommandInfoEmbed : CommandInfoEmbed,
@@ -226,5 +230,5 @@ module.exports = {
     UserProfileEmbed : UserProfileEmbed,
     UserMakulEmbed : UserMakulEmbed,
     UserKhsEmbed : UserKhsEmbed,
-    UserTranskripEmbed : UserTranskripEmbed
+    UserTranskripEmbed : UserTranskripEmbed,
 }
