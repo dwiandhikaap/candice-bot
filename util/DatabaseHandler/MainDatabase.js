@@ -16,9 +16,15 @@ async function dbClose(){
     await client.close();
 }
 
+async function dbInfo(){
+    const {version, uptime} = await db.admin().serverStatus();
+    return {version, uptime};
+}
+
 module.exports = {
     db : db,
 
     dbInit : dbInit,
-    dbClose : dbClose
+    dbClose : dbClose,
+    dbInfo : dbInfo
 }
