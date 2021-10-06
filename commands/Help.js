@@ -8,8 +8,9 @@ async function help(interaction){
     await interaction.reply(NotifEmbed({
         title: "Commands",
         desc: "Use commands below to learn more\n\
-               `info` `help` `register` `unreg` `profile`\n\
-               `khs` `makul` `transkrip` `presensi` `togglepresensichannel`\
+               `/info` `/help` `/register` `/unreg` `/profile`\n\
+               `/khs` `/jadwal` `/makul` `/transkrip` `/presensi` \n\
+               `/togglepresensichannel`\
         "
     }))
 }
