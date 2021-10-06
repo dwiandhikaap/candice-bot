@@ -215,7 +215,17 @@ function InfoEmbed(nodeJsVersion, discordJsVersion, mongoDBInfo, botInfo, client
 }
 
 
-
+function JadwalEmbed(jadwalData){
+	const jadwalFields = generateJadwalField(jadwalData);
+	const embed = new MessageEmbed()
+		.setColor("#4278f5")
+		.setTitle("Jadwal Kuliah ▸ **20 BCI 01**")
+		.setFooter("2021/2022 - Semester Ganjil")
+		.setTimestamp(new Date())
+		.addFields(jadwalFields);
+	
+	return {embeds : [embed]};
+}
 
 module.exports = {
     CommandInfoEmbed : CommandInfoEmbed,
@@ -231,4 +241,5 @@ module.exports = {
     UserMakulEmbed : UserMakulEmbed,
     UserKhsEmbed : UserKhsEmbed,
     UserTranskripEmbed : UserTranskripEmbed,
+		JadwalEmbed : JadwalEmbed
 }

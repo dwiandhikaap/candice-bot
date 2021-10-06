@@ -21,6 +21,7 @@ const { transkrip } = require('../commands/Transkrip');
 const { presensi } = require('../commands/Presensi');
 const { info } = require('../commands/Info');
 const { togglePresensiChannel } = require('../commands/TogglePresensiChannel');
+const { jadwal } = require('../commands/Jadwal');
 
 const commands = [
     new SlashCommandBuilder()
@@ -51,6 +52,10 @@ const commands = [
         .setName('profile')
         .setDescription('Show your AMIKOM user profile'),
     
+    new SlashCommandBuilder()
+        .setName('jadwal')
+        .setDescription('Show lecture schedule'),
+
     new SlashCommandBuilder()
         .setName('makul')
         .setDescription('Show your AMIKOM subjects')
@@ -134,6 +139,11 @@ async function interactionHandler(interaction, client){
 
             case 'profile':{
                 await profile(interaction);
+                break;
+            }
+
+            case 'jadwal':{
+                await jadwal(interaction);
                 break;
             }
 
