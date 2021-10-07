@@ -17,6 +17,7 @@ Use commands below from your Discord App
 - `/register`
 - `/unreg`
 - `/profile`
+- `/jadwal`
 - `/makul`
 - `/khs`
 - `/transkrip`
