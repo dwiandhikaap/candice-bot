@@ -63,6 +63,11 @@
              "endTime":"08:40"
           },
           {
+             "name":"Multimedia - Praktikum",
+             "startTime":"08:50",
+             "endTime":"10:30"
+          },
+          {
              "name":"Sistem Basis Data",
              "startTime":"13:20",
              "endTime":"15:00"
@@ -76,11 +81,6 @@
              "name":"Jaringan Komputer - Praktikum",
              "startTime":"07:00",
              "endTime":"08:40"
-          },
-          {
-             "name":"Multimedia - Praktikum",
-             "startTime":"08:50",
-             "endTime":"10:30"
           }
        ]
     },
