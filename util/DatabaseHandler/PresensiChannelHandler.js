@@ -1,6 +1,6 @@
-const { db } = require("./MainDatabase");
+const { user_db } = require("./MainDatabase");
 
-const channelCollection = db.collection("presensiChannels");
+const channelCollection = user_db.collection("presensiChannels");
 
 let presensiChannels = [];
 

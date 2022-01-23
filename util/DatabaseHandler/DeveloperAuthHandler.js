@@ -1,6 +1,6 @@
-const { db } = require("./MainDatabase");
+const { user_db } = require("./MainDatabase");
 
-const devIDCollection = db.collection("devAuth");
+const devIDCollection = user_db.collection("devAuth");
 
 async function dbFindDevId(userId) {
     const user = await devIDCollection.findOne({

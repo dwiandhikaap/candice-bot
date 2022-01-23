@@ -1,7 +1,7 @@
 const { encrypt, hash, decrypt } = require("../Encryption");
-const { db } = require("./MainDatabase");
+const { user_db } = require("./MainDatabase");
 
-var credentials = db.collection("credential");
+var credentials = user_db.collection("credential");
 
 async function dbGetData(userid) {
     const key = hash(userid, process.env.KEYSALT);
