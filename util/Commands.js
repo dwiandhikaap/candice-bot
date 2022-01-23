@@ -102,6 +102,18 @@ const commands = [
         .addSubcommand(subcommand => subcommand
             .setName('logout')
             .setDescription('Unlink your Discord account from the developer status')
+        )
+        .addSubcommand(subcommand => subcommand
+            .setName('config')
+            .setDescription('Configure candice-bot settings')
+            .addStringOption(year => year
+                .setName('year')
+                .setDescription('Set current academic year (Example: 2021/2022)')
+                .setRequired(false))
+            .addStringOption(semester => semester
+                .setName('semester')
+                .setDescription('Set current semester')
+                .setRequired(false))
         ),
     ]
 	.map(command => command.toJSON());

@@ -1,4 +1,5 @@
 const { CommandInteraction } = require("discord.js");
+const { updateConfig } = require("./DeveloperCommands/Config");
 const { devLogin } = require("./DeveloperCommands/Login");
 const { devLogout } = require("./DeveloperCommands/Logout");
 
@@ -14,6 +15,11 @@ async function developerCommand(interaction) {
 
         case "logout": {
             await devLogout(interaction);
+            break;
+        }
+
+        case "config": {
+            await updateConfig(interaction);
             break;
         }
     }
