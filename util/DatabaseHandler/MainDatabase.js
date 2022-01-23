@@ -7,6 +7,7 @@ const client = new MongoClient(uri, {
 });
 
 var user_db = client.db("user_db");
+var bot_db = client.db("bot_db");
 
 async function dbInit() {
     await client.connect();
@@ -23,6 +24,7 @@ async function dbInfo() {
 
 module.exports = {
     user_db: user_db,
+    bot_db: bot_db,
 
     dbInit: dbInit,
     dbClose: dbClose,
