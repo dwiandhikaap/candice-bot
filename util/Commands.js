@@ -22,6 +22,7 @@ const { presensi } = require('../commands/Presensi');
 const { info } = require('../commands/Info');
 const { togglePresensiChannel } = require('../commands/TogglePresensiChannel');
 const { jadwal } = require('../commands/Jadwal');
+const { developerCommand } = require('../commands/Developer');
 
 const commands = [
     new SlashCommandBuilder()
@@ -87,6 +88,21 @@ const commands = [
     new SlashCommandBuilder()
         .setName('togglepresensichannel')
         .setDescription('Toggle a channel\'s presence channel status'),
+
+    new SlashCommandBuilder()
+        .setName('dev')
+        .setDescription('Commands for this bot developer/maintainer')
+        .addSubcommand(subcommand => subcommand
+            .setName('login')
+            .setDescription('Authenticate your Discord account as the developer of this bot')
+            .addStringOption(password => password
+                .setName('devpassword')
+                .setDescription('Password used to login as the developer (Example: j3NzZblKYq)')
+                .setRequired(true)))
+        .addSubcommand(subcommand => subcommand
+            .setName('logout')
+            .setDescription('Unlink your Discord account from the developer status')
+        ),
     ]
 	.map(command => command.toJSON());
 
@@ -169,6 +185,11 @@ async function interactionHandler(interaction, client){
 
             case 'togglepresensichannel':{
                 await togglePresensiChannel(interaction);
+                break;
+            }
+
+            case 'dev' : {
+                await developerCommand(interaction);
                 break;
             }
         }
