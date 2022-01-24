@@ -24,4 +24,5 @@ async function dbFindConfig() {
 
 module.exports = {
     dbSetConfig: dbSetConfig,
+    dbFindConfig: dbFindConfig,
 };

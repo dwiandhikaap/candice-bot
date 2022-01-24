@@ -114,6 +114,10 @@ const commands = [
                 .setName('semester')
                 .setDescription('Set current semester')
                 .setRequired(false))
+            .addStringOption(jadwal => jadwal
+                .setName('jadwal')
+                .setDescription('Set jadwal from string formatted in JSON')
+                .setRequired(false))
         ),
     ]
 	.map(command => command.toJSON());
