@@ -12,6 +12,7 @@ async function updateConfig(interaction) {
     const year = interaction.options.getString("year", false);
     const semester = interaction.options.getString("semester", false);
     const jadwal = interaction.options.getString("jadwal", false);
+    const mahasiswa = interaction.options.getString("mahasiswa", false);
 
     if (!(await dbIsUserDev(user.id))) {
         interaction.reply("You're not the developer!");
@@ -42,6 +43,16 @@ async function updateConfig(interaction) {
             config.jadwal = parsedJadwal;
         } catch (err) {
             interaction.reply("Invalid jadwal format! Use minified JSON!");
+            return;
+        }
+    }
+
+    if (mahasiswa) {
+        try {
+            const parsedMahasiswa = JSON.parse(mahasiswa);
+            config.mahasiswa = parsedMahasiswa;
+        } catch (err) {
+            interaction.reply("Invalid mahasiswa list format! Use minified JSON!");
             return;
         }
     }

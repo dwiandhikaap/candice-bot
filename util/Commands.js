@@ -118,6 +118,10 @@ const commands = [
                 .setName('jadwal')
                 .setDescription('Set jadwal from string formatted in JSON')
                 .setRequired(false))
+            .addStringOption(mahasiswa => mahasiswa
+                .setName('mahasiswa')
+                .setDescription('Set mahasiswa list from string formatted in JSON')
+                .setRequired(false))
         ),
     ]
 	.map(command => command.toJSON());
