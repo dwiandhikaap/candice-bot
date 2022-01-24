@@ -23,6 +23,7 @@ const { info } = require('../commands/Info');
 const { togglePresensiChannel } = require('../commands/TogglePresensiChannel');
 const { jadwal } = require('../commands/Jadwal');
 const { developerCommand } = require('../commands/Developer');
+const { mhs } = require('../commands/Mhs');
 
 const commands = [
     new SlashCommandBuilder()
@@ -123,6 +124,9 @@ const commands = [
                 .setDescription('Set mahasiswa list from string formatted in JSON')
                 .setRequired(false))
         ),
+    new SlashCommandBuilder()
+        .setName('mhs')
+        .setDescription('Show all the students name and nim'),
     ]
 	.map(command => command.toJSON());
 
@@ -210,6 +214,11 @@ async function interactionHandler(interaction, client){
 
             case 'dev' : {
                 await developerCommand(interaction);
+                break;
+            }
+
+            case 'mhs' : {
+                await mhs(interaction);
                 break;
             }
         }

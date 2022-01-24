@@ -69,6 +69,16 @@ function parseTranskrip(transkripData, indexRange) {
     return result;
 }
 
+function parseMhs(mhsData) {
+    let result = "";
+    let index = 1;
+    for (const mhs of mhsData) {
+        result += `**${index}. ${mhs.name}** - ${mhs.nim}\n`;
+        index++;
+    }
+    return result;
+}
+
 function generateJadwalField(jadwalData, semester, userConcentration) {
     const jadwalField = [];
 
@@ -103,6 +113,7 @@ module.exports = {
     isInvalidToken: isInvalidToken,
     parseMakul: parseMakul,
     parseKhs: parseKhs,
+    parseMhs: parseMhs,
     parseTranskrip: parseTranskrip,
     generateJadwalField: generateJadwalField,
 };
