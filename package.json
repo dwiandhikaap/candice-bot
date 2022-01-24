@@ -15,6 +15,7 @@
     "discord-api-types": "0.22.0",
     "discord.js": "13.1.0",
     "dotenv": "10.0.0",
+    "json-format": "^1.0.1",
     "mongodb": "4.1.1"
   }
 }
