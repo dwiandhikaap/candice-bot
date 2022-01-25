@@ -16,8 +16,8 @@ async function clientStart() {
 
     //client.user.setAvatar('./avatar.jpg');
     client.user.setPresence({
-        activities: [{ name: "⛔ Under construction!" }],
-        status: "dnd",
+        activities: [{ name: "/help" }],
+        status: "online",
     });
 }
 
