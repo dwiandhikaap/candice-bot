@@ -1,8 +1,8 @@
 require("dotenv").config();
-require("./src/util/Commands");
+require("./src/CommandBuilder/Commands");
 
 const Discord = require("discord.js");
-const { createCommands, interactionHandler } = require("./src/util/Commands");
+const { createCommands, interactionHandler } = require("./src/CommandBuilder/Commands");
 const client = new Discord.Client({
     intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"],
     partials: ["CHANNEL"],
