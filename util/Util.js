@@ -73,7 +73,7 @@ function parseMhs(mhsData) {
     let result = "";
     let index = 1;
     for (const mhs of mhsData) {
-        result += `**${index}. ${mhs.name}** - ${mhs.nim}\n`;
+        result += `${index}. ${mhs.name} - **${mhs.nim}**\n`;
         index++;
     }
     return result;
@@ -112,9 +112,9 @@ function shuffleMhsGroup(mhsData, shuffleByMember, count) {
 function parseMhsGroup(mhsGroup) {
     let result = ``;
     for (let i = 0; i < mhsGroup.length; i++) {
-        result += `*Group ${i + 1}*\n`;
+        result += `**Group ${i + 1}**\n`;
         for (let j = 0; j < mhsGroup[i].length; j++) {
-            result += `**${j + 1}. ${mhsGroup[i][j].name}** - ${mhsGroup[i][j].nim}\n`;
+            result += `${j + 1}. ${mhsGroup[i][j].name} - ${mhsGroup[i][j].nim}\n`;
         }
         result += `\n`;
     }
