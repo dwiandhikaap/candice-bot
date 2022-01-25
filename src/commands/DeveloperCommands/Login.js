@@ -1,5 +1,5 @@
 const { CommandInteraction } = require("discord.js");
-const { dbFindDevId, dbAddDevId } = require("../../util/DatabaseHandler/DeveloperAuthHandler");
+const { dbFindDevId, dbAddDevId } = require("../../DatabaseHandler/DeveloperAuthHandler");
 const { hash } = require("../../util/Encryption");
 
 /**

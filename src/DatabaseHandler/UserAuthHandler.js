@@ -1,4 +1,4 @@
-const { encrypt, hash, decrypt } = require("../Encryption");
+const { encrypt, hash, decrypt } = require("../util/Encryption");
 const { user_db } = require("./MainDatabase");
 
 var credentials = user_db.collection("credential");

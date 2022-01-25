@@ -2,7 +2,7 @@ const { CommandInteraction, Client } = require("discord.js");
 const discordJsPackage = require("discord.js/package.json");
 const appPackage = require("../../package.json");
 const { InfoEmbed } = require("../util/CommandEmbed");
-const { dbInfo } = require("../util/DatabaseHandler/MainDatabase");
+const { dbInfo } = require("../DatabaseHandler/MainDatabase");
 
 /**
  * @param {CommandInteraction} interaction - User interaction

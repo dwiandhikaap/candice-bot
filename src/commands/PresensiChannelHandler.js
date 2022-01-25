@@ -1,7 +1,7 @@
 const { Message } = require("discord.js");
 const { AuthFailed } = require("../util/CommandEmbed");
-const { dbGetData } = require("../util/DatabaseHandler/UserAuthHandler");
-const { dbRetrievePresensiChannels } = require("../util/DatabaseHandler/PresensiChannelHandler");
+const { dbGetData } = require("../DatabaseHandler/UserAuthHandler");
+const { dbRetrievePresensiChannels } = require("../DatabaseHandler/PresensiChannelHandler");
 const { generatePresensiPayload } = require("../util/PresensiPayload");
 const { authUser, sendPresensi } = require("../util/RequestHandler");
 const { isInvalidToken } = require("../util/Util");

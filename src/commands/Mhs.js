@@ -1,6 +1,6 @@
 const { CommandInteraction } = require("discord.js");
 const { MhsEmbed } = require("../util/CommandEmbed");
-const { botConfig } = require("../util/DatabaseHandler/ConfigHandler");
+const { botConfig } = require("../DatabaseHandler/ConfigHandler");
 const { sortMhs } = require("../util/Util");
 
 /**

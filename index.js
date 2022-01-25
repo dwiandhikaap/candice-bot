@@ -7,10 +7,10 @@ const client = new Discord.Client({
     intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"],
     partials: ["CHANNEL"],
 });
-const { dbInit } = require("./src/util/DatabaseHandler/MainDatabase");
-const { dbLoadChannel } = require("./src/util/DatabaseHandler/PresensiChannelHandler");
+const { dbInit } = require("./src/DatabaseHandler/MainDatabase");
+const { dbLoadChannel } = require("./src/DatabaseHandler/PresensiChannelHandler");
 const { messageHandler } = require("./src/commands/PresensiChannelHandler");
-const { botConfig } = require("./src/util/DatabaseHandler/ConfigHandler");
+const { botConfig } = require("./src/DatabaseHandler/ConfigHandler");
 
 async function clientStart() {
     await dbInit();

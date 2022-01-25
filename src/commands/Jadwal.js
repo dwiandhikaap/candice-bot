@@ -1,6 +1,6 @@
 const { CommandInteraction } = require("discord.js");
 const { JadwalEmbed } = require("../util/CommandEmbed");
-const { botConfig } = require("../util/DatabaseHandler/ConfigHandler");
+const { botConfig } = require("../DatabaseHandler/ConfigHandler");
 
 /**
  * @param {CommandInteraction} interaction - User interaction
