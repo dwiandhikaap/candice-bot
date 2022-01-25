@@ -1,20 +1,20 @@
 {
-  "name": "candice-bot",
-  "description": "Discord bot named candice",
-  "version": "1.07",
-  "engines": {
-    "node": "16.x"
-  },
-  "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "@discordjs/builders": "0.6.0",
-    "@discordjs/rest": "0.1.0-canary.0",
-    "axios": "0.21.1",
-    "discord-api-types": "0.22.0",
-    "discord.js": "13.1.0",
-    "dotenv": "10.0.0",
-    "mongodb": "4.1.1"
-  }
+    "name": "candice-bot",
+    "description": "Discord bot named candice",
+    "version": "1.1",
+    "engines": {
+        "node": "16.x"
+    },
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "@discordjs/builders": "0.6.0",
+        "@discordjs/rest": "0.1.0-canary.0",
+        "axios": "0.21.1",
+        "discord-api-types": "0.22.0",
+        "discord.js": "13.1.0",
+        "dotenv": "10.0.0",
+        "mongodb": "4.1.1"
+    }
 }
