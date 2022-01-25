@@ -79,6 +79,49 @@ function parseMhs(mhsData) {
     return result;
 }
 
+function sortMhs(mhsData) {
+    return [...mhsData].sort((a, b) => {
+        if (a.nim < b.nim) return -1;
+        if (a.nim > b.nim) return 1;
+        return 0;
+    });
+}
+
+// `count` could be either the number of groups
+// or the number of members for each group
+function shuffleMhsGroup(mhsData, shuffleByMember, count) {
+    let groupCount;
+    const studentCount = mhsData.length;
+    const shuffled = mhsData.sort(() => Math.random() - 0.5);
+
+    if (shuffleByMember) {
+        groupCount = Math.ceil(studentCount / count);
+    } else {
+        groupCount = Math.min(count, studentCount);
+    }
+
+    const result = [...Array(groupCount)].map(() => []);
+
+    for (let i = 0; i < studentCount; i++) {
+        result[i % groupCount].push(shuffled[i]);
+    }
+
+    return result;
+}
+
+function parseMhsGroup(mhsGroup) {
+    let result = ``;
+    for (let i = 0; i < mhsGroup.length; i++) {
+        result += `*Group ${i + 1}*\n`;
+        for (let j = 0; j < mhsGroup[i].length; j++) {
+            result += `**${j + 1}. ${mhsGroup[i][j].name}** - ${mhsGroup[i][j].nim}\n`;
+        }
+        result += `\n`;
+    }
+
+    return result;
+}
+
 function generateJadwalField(jadwalData, semester, userConcentration) {
     const jadwalField = [];
 
@@ -113,7 +156,10 @@ module.exports = {
     isInvalidToken: isInvalidToken,
     parseMakul: parseMakul,
     parseKhs: parseKhs,
+    sortMhs: sortMhs,
     parseMhs: parseMhs,
+    parseMhsGroup: parseMhsGroup,
     parseTranskrip: parseTranskrip,
     generateJadwalField: generateJadwalField,
+    shuffleMhsGroup: shuffleMhsGroup,
 };

@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
-const { parseMakul, parseKhs, parseTranskrip, generateJadwalField, parseMhs } = require("./Util");
+const { parseMakul, parseKhs, parseTranskrip, generateJadwalField, parseMhs, parseMhsGroup } = require("./Util");
 
 function CommandInfoEmbed(param) {
     return {
@@ -267,6 +267,18 @@ function MhsEmbed(mhsData) {
     return { embeds: [embed] };
 }
 
+function StudentGroupEmbed(mhsGroup) {
+    const parsedMhsGroup = parseMhsGroup(mhsGroup);
+    const embed = new MessageEmbed()
+        .setColor("#4278f5")
+        .setTitle("🎲 Random Group Generator ▸ **20 BCI 01**")
+        .setFooter("2021/2022 - Semester Ganjil")
+        .setTimestamp(new Date())
+        .addField("\u200B", parsedMhsGroup);
+
+    return { embeds: [embed] };
+}
+
 module.exports = {
     CommandInfoEmbed: CommandInfoEmbed,
     NotifEmbed: NotifEmbed,
@@ -283,4 +295,5 @@ module.exports = {
     UserTranskripEmbed: UserTranskripEmbed,
     JadwalEmbed: JadwalEmbed,
     MhsEmbed: MhsEmbed,
+    StudentGroupEmbed: StudentGroupEmbed,
 };

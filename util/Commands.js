@@ -24,6 +24,7 @@ const { togglePresensiChannel } = require('../commands/TogglePresensiChannel');
 const { jadwal } = require('../commands/Jadwal');
 const { developerCommand } = require('../commands/Developer');
 const { mhs } = require('../commands/Mhs');
+const { group } = require('../commands/Group');
 
 const commands = [
     new SlashCommandBuilder()
@@ -127,6 +128,20 @@ const commands = [
     new SlashCommandBuilder()
         .setName('mhs')
         .setDescription('Show all the students name and nim'),
+
+    new SlashCommandBuilder()
+        .setName('group')
+        .setDescription('Create groups of students')
+        .addBooleanOption(student => student
+            .setName('student')
+            .setDescription('Create groups with N members. If false, N-group will be created instead')
+            .setRequired(true)
+        )
+        .addIntegerOption(value => value
+            .setName('count')
+            .setDescription('How many groups or members per group')
+            .setRequired(true)
+        )
     ]
 	.map(command => command.toJSON());
 
@@ -219,6 +234,11 @@ async function interactionHandler(interaction, client){
 
             case 'mhs' : {
                 await mhs(interaction);
+                break;
+            }
+
+            case 'group' : {
+                await group(interaction);
                 break;
             }
         }
