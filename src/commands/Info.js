@@ -1,7 +1,7 @@
 const { CommandInteraction, Client } = require("discord.js");
 const discordJsPackage = require("discord.js/package.json");
 const appPackage = require("../../package.json");
-const { InfoEmbed } = require("../util/CommandEmbed");
+const { InfoEmbed } = require("../Embeds/InfoEmbed");
 const { dbInfo } = require("../DatabaseHandler/MainDatabase");
 
 /**

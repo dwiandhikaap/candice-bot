@@ -1,7 +1,10 @@
-const { UserNotFound, UserKhsEmbed, InvalidAcademicYear, AuthFailed } = require("../util/CommandEmbed");
 const { dbGetData } = require("../DatabaseHandler/UserAuthHandler");
 const { isInvalidYear } = require("../util/Util");
 const { getKhs } = require("../util/RequestHandler");
+const { UserKhsEmbed } = require("../Embeds/UserKhsEmbed");
+const { UserNotFound } = require("../Embeds/UserNotFound");
+const { AuthFailed } = require("../Embeds/AuthFailed");
+const { InvalidAcademicYear } = require("../Embeds/InvalidAcademicYear");
 
 /**
  * @param {CommandInteraction} interaction User command

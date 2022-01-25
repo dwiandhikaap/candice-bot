@@ -1,5 +1,5 @@
 const { Message } = require("discord.js");
-const { AuthFailed } = require("../util/CommandEmbed");
+const { AuthFailed } = require("../Embeds/AuthFailed");
 const { dbGetData } = require("../DatabaseHandler/UserAuthHandler");
 const { dbRetrievePresensiChannels } = require("../DatabaseHandler/PresensiChannelHandler");
 const { generatePresensiPayload } = require("../util/PresensiPayload");

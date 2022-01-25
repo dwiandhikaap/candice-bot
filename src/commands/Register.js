@@ -1,4 +1,4 @@
-const { NotifEmbed } = require("../util/CommandEmbed");
+const { NotifEmbed } = require("../Embeds/NotifEmbed");
 const { dbSearch, dbInsert, dbUpdate } = require("../DatabaseHandler/UserAuthHandler");
 
 /**
