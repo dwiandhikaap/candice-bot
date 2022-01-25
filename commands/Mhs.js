@@ -1,5 +1,4 @@
 const { CommandInteraction } = require("discord.js");
-const jsonFormat = require("json-format");
 const { MhsEmbed } = require("../util/CommandEmbed");
 const { dbFindConfig } = require("../util/DatabaseHandler/ConfigHandler");
 const { sortMhs } = require("../util/Util");

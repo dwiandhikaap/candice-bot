@@ -1,8 +1,9 @@
 const { CommandInteraction } = require("discord.js");
-const jsonFormat = require("json-format");
 const { dbSetConfig, dbFindConfig } = require("../../util/DatabaseHandler/ConfigHandler");
 const { dbIsUserDev } = require("../../util/DatabaseHandler/DeveloperAuthHandler");
 const { isInvalidYear } = require("../../util/Util");
+const { Blob } = require("buffer");
+const fs = require("fs");
 
 /**
  * @param {CommandInteraction} interaction - User interaction
@@ -58,16 +59,20 @@ async function updateConfig(interaction) {
     }
 
     if (Object.keys(config).length === 0) {
-        const currentConfig = jsonFormat(await dbFindConfig());
-
-        interaction.reply(`Current Config\n\`\`\`json\n${currentConfig}\`\`\``);
+        const fullConfig = await dbFindConfig();
+        const jsn = JSON.stringify(fullConfig, null, 4);
+        const buf = Buffer.from(jsn, "utf8");
+        //interaction.send(buf)
+        interaction.reply({ files: [{ attachment: buf, name: "config.json", description: "my nuts" }] });
         return;
     }
 
     await dbSetConfig(config);
-    interaction.reply(
-        `Successfully updated the config! Affected config(s) : \n\`\`\`json\n${jsonFormat(config)}\`\`\``
-    );
+    const formattedConfig = JSON.stringify(config, null, 4);
+
+    interaction.reply(`Successfully updated the config! Affected config(s) : \n\`\`\`json\n${formattedConfig}\`\`\``, {
+        split: true,
+    });
 }
 
 module.exports = {
