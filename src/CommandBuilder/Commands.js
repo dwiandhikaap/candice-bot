@@ -9,7 +9,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const rest = new REST({ version: '9' }).setToken(clientToken);
 
-const { Client, Guild } = require('discord.js');
+const { Guild } = require('discord.js');
 
 const { help } = require('../commands/Help');
 const { register } = require('../commands/Register');
@@ -108,22 +108,22 @@ const commands = [
         .addSubcommand(subcommand => subcommand
             .setName('config')
             .setDescription('Configure candice-bot settings')
-            .addStringOption(year => year
-                .setName('year')
-                .setDescription('Set current academic year (Example: 2021/2022)')
+            .addStringOption(key => key
+                .setName("key")
+                .setDescription("Key to configure (Example: currentSemester)")
+                .setRequired(true)
+                .addChoices([
+                    ["All", "all"],
+                    ["Semester", "currentSemester"],
+                    ["Year", "currentYear"],
+                    ["Jadwal", "jadwal"],
+                    ["Mahasiswa", "mahasiswa"],
+                ]))
+            .addStringOption(value => value
+                .setName("value")
+                .setDescription("Value to configure, based on the key (Example: '2021/2022')")
                 .setRequired(false))
-            .addStringOption(semester => semester
-                .setName('semester')
-                .setDescription('Set current semester')
-                .setRequired(false))
-            .addStringOption(jadwal => jadwal
-                .setName('jadwal')
-                .setDescription('Set jadwal from string formatted in JSON')
-                .setRequired(false))
-            .addStringOption(mahasiswa => mahasiswa
-                .setName('mahasiswa')
-                .setDescription('Set mahasiswa list from string formatted in JSON')
-                .setRequired(false))
+            
         ),
     new SlashCommandBuilder()
         .setName('mhs')

@@ -5,20 +5,12 @@ const configCollection = bot_db.collection("config");
 class BotConfig {
     constructor() {}
 
-    get mahasiswa() {
-        return this.config.mahasiswa;
+    get(key) {
+        return this.config[key];
     }
 
-    get jadwal() {
-        return this.config.jadwal;
-    }
-
-    get currentYear() {
-        return this.config.currentYear;
-    }
-
-    get currentSemester() {
-        return this.config.currentSemester;
+    set(key, value) {
+        this.updateConfig({ [key]: value });
     }
 
     async init() {

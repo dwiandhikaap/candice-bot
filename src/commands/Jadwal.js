@@ -8,8 +8,8 @@ const { JadwalEmbed } = require("../Embeds/JadwalEmbed");
 async function jadwal(interaction) {
     // TODO: use proper userConcentration on the next semester (semester 4)
     const userConcentration = "all";
-    const semester = botConfig.currentSemester;
-    const jadwalData = botConfig.jadwal;
+    const semester = botConfig.get("currentSemester");
+    const jadwalData = botConfig.get("jadwal");
 
     interaction.reply(JadwalEmbed(jadwalData, semester, userConcentration));
 }

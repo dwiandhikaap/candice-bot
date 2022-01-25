@@ -9,67 +9,103 @@ const { botConfig } = require("../../DatabaseHandler/ConfigHandler");
  */
 async function updateConfig(interaction) {
     const user = interaction.user;
-    const year = interaction.options.getString("year", false);
-    const semester = interaction.options.getString("semester", false);
-    const jadwal = interaction.options.getString("jadwal", false);
-    const mahasiswa = interaction.options.getString("mahasiswa", false);
 
     if (!(await dbIsUserDev(user.id))) {
         interaction.reply("You're not the developer!");
         return;
     }
 
-    const config = {};
+    const key = interaction.options.getString("key");
+    const value = interaction.options.getString("value");
 
-    if (year) {
-        if (isInvalidYear(year)) {
-            interaction.reply("Invalid academic year!");
+    if (!value) {
+        let outputJson =
+            key === "all"
+                ? JSON.stringify(botConfig.config, null, 4)
+                : JSON.stringify({ [key]: botConfig.get(key) }, null, 4);
+
+        if (outputJson.length < 1000) {
+            interaction.reply(`\`\`\`json\n${outputJson}\`\`\``);
             return;
         }
-        config.currentYear = year;
-    }
 
-    if (semester) {
-        if (isNaN(parseInt(semester))) {
-            interaction.reply("Invalid semester!");
-            return;
-        }
-        config.currentSemester = parseInt(semester);
-    }
-
-    if (jadwal) {
-        try {
-            const parsedJadwal = JSON.parse(jadwal);
-            config.jadwal = parsedJadwal;
-        } catch (err) {
-            interaction.reply("Invalid jadwal format! Use minified JSON!");
-            return;
-        }
-    }
-
-    if (mahasiswa) {
-        try {
-            const parsedMahasiswa = JSON.parse(mahasiswa);
-            config.mahasiswa = parsedMahasiswa;
-        } catch (err) {
-            interaction.reply("Invalid mahasiswa list format! Use minified JSON!");
-            return;
-        }
-    }
-
-    if (Object.keys(config).length === 0) {
-        const fullConfig = botConfig.config;
-        const jsn = JSON.stringify(fullConfig, null, 4);
-        const buf = Buffer.from(jsn, "utf8");
-        interaction.reply({ files: [{ attachment: buf, name: "config.json", description: "my nuts" }] });
+        const buf = Buffer.from(outputJson, "utf8");
+        interaction.reply({
+            files: [{ attachment: buf, name: `config_${key}.json`, description: "Current bot configuration" }],
+        });
         return;
     }
 
-    botConfig.updateConfig(config);
-    const formattedConfig = JSON.stringify(config, null, 4);
+    switch (key) {
+        case "all": {
+            try {
+                const parsedConfig = JSON.parse(value);
+                botConfig.set("all", parsedConfig);
+            } catch (error) {
+                interaction.reply("Invalid jadwal format! Use minified JSON!");
+                return;
+            }
+            break;
+        }
 
-    interaction.reply(`Successfully updated the config! Affected config(s) : \n\`\`\`json\n${formattedConfig}\`\`\``, {
-        split: true,
+        case "currentYear": {
+            if (isInvalidYear(value)) {
+                interaction.reply("Invalid academic year!");
+                return;
+            }
+            botConfig.set("currentYear", value);
+            break;
+        }
+
+        case "currentSemester": {
+            if (isNaN(parseInt(value))) {
+                interaction.reply("Invalid semester!");
+                return;
+            }
+            botConfig.set("currentSemester", parseInt(value));
+            break;
+        }
+
+        case "jadwal": {
+            try {
+                const parsedJadwal = JSON.parse(value);
+                botConfig.set("jadwal", parsedJadwal);
+            } catch (err) {
+                interaction.reply("Invalid jadwal format! Use minified JSON!");
+                return;
+            }
+            break;
+        }
+
+        case "mahasiswa": {
+            try {
+                const parsedMahasiswa = JSON.parse(value);
+                botConfig.set("mahasiswa", parsedMahasiswa);
+            } catch (err) {
+                interaction.reply("Invalid mahasiswa list format! Use minified JSON!");
+                return;
+            }
+            break;
+        }
+    }
+
+    const affectedConfig = JSON.stringify({ [key]: value }, null, 4);
+
+    if (affectedConfig.length < 1000) {
+        interaction.reply(
+            `Successfully updated the config! Affected config(s) : \n\`\`\`json\n${affectedConfig}\`\`\``,
+            {
+                split: true,
+            }
+        );
+        return;
+    }
+
+    const buf = Buffer.from(affectedConfig, "utf8");
+    interaction.reply({
+        files: [
+            { attachment: buf, name: `affected-config.json`, description: "Details of which config were affected" },
+        ],
     });
 }
 

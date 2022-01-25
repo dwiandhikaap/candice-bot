@@ -10,7 +10,7 @@ async function group(interaction) {
     const user = interaction.user;
     const isByStudent = interaction.options.getBoolean("student");
     const count = interaction.options.getInteger("count");
-    const mhsData = botConfig.mahasiswa;
+    const mhsData = botConfig.get("mahasiswa");
     const buttonIdTag = new Date().getTime().toString();
     const guildIconURL = interaction.guild.iconURL();
 
