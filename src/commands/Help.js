@@ -11,7 +11,7 @@ async function help(interaction) {
             desc: "Use commands below to learn more\n\
                `/info` `/help` `/register` `/unreg` `/profile`\n\
                `/khs` `/jadwal` `/makul` `/transkrip` `/presensi` \n\
-               `/togglepresensichannel`\
+               `/togglepresensichannel` `/mhs` `/group`\
         ",
         })
     );
