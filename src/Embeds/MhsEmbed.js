@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const { parseMhs } = require("../util/Util");
+const { parseMhs } = require("../util/Parser");
 
 function MhsEmbed(mhsData) {
     const parsedMhs = parseMhs(mhsData);

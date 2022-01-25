@@ -4,7 +4,7 @@ const { dbGetData } = require("../DatabaseHandler/UserAuthHandler");
 const { dbRetrievePresensiChannels } = require("../DatabaseHandler/PresensiChannelHandler");
 const { generatePresensiPayload } = require("../util/PresensiPayload");
 const { authUser, sendPresensi } = require("../util/RequestHandler");
-const { isInvalidToken } = require("../util/Util");
+const { isInvalidToken } = require("../util/Validator");
 
 let cachedChannelIds = []
 

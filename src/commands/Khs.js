@@ -1,5 +1,5 @@
 const { dbGetData } = require("../DatabaseHandler/UserAuthHandler");
-const { isInvalidYear } = require("../util/Util");
+const { isInvalidYear } = require("../util/Validator");
 const { getKhs } = require("../util/RequestHandler");
 const { UserKhsEmbed } = require("../Embeds/UserKhsEmbed");
 const { UserNotFound } = require("../Embeds/UserNotFound");

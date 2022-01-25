@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
-const { parseTranskrip } = require("../util/Util");
+const { parseTranskrip } = require("../util/Parser");
 
 function UserTranskripEmbed(param) {
     const { user, buttonIdTag, transkripData, currentPage, pages, indexRange } = param;

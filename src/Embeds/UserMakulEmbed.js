@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
-const { parseMakul } = require("../util/Util");
+const { parseMakul } = require("../util/Parser");
 
 function UserMakulEmbed(param) {
     const { user, buttonIdTag, userMakulData, isOddSemester, tahunAkademik } = param;

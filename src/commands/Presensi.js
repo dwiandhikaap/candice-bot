@@ -5,7 +5,7 @@ const { PresensiEmbed } = require("../Embeds/PresensiEmbed");
 const { UserNotFound } = require("../Embeds/UserNotFound");
 const { generatePresensiPayload } = require("../util/PresensiPayload");
 const { sendPresensi, authUser } = require("../util/RequestHandler");
-const { isInvalidToken } = require("../util/Util");
+const { isInvalidToken } = require("../util/Validator");
 
 /**
  * @param {CommandInteraction} interaction - User interaction

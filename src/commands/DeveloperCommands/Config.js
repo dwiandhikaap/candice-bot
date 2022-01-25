@@ -1,8 +1,7 @@
 const { CommandInteraction } = require("discord.js");
 const { dbIsUserDev } = require("../../DatabaseHandler/DeveloperAuthHandler");
-const { isInvalidYear } = require("../../util/Util");
-const { Blob } = require("buffer");
-const fs = require("fs");
+const { isInvalidYear } = require("../../util/Validator");
+
 const { botConfig } = require("../../DatabaseHandler/ConfigHandler");
 
 /**
@@ -62,7 +61,6 @@ async function updateConfig(interaction) {
         const fullConfig = botConfig.config;
         const jsn = JSON.stringify(fullConfig, null, 4);
         const buf = Buffer.from(jsn, "utf8");
-        //interaction.send(buf)
         interaction.reply({ files: [{ attachment: buf, name: "config.json", description: "my nuts" }] });
         return;
     }

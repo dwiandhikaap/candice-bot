@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js");
-const { parseMhsGroup } = require("../util/Util");
+const { parseMhsGroup } = require("../util/Parser");
 
 function StudentGroupEmbed(mhsGroup, buttonIdTag) {
     const parsedMhsGroup = parseMhsGroup(mhsGroup);
