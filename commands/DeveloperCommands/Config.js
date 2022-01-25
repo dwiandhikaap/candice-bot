@@ -1,9 +1,9 @@
 const { CommandInteraction } = require("discord.js");
-const { dbSetConfig, dbFindConfig } = require("../../util/DatabaseHandler/ConfigHandler");
 const { dbIsUserDev } = require("../../util/DatabaseHandler/DeveloperAuthHandler");
 const { isInvalidYear } = require("../../util/Util");
 const { Blob } = require("buffer");
 const fs = require("fs");
+const { botConfig } = require("../../util/DatabaseHandler/ConfigHandler");
 
 /**
  * @param {CommandInteraction} interaction - User interaction
@@ -59,7 +59,7 @@ async function updateConfig(interaction) {
     }
 
     if (Object.keys(config).length === 0) {
-        const fullConfig = await dbFindConfig();
+        const fullConfig = botConfig.config;
         const jsn = JSON.stringify(fullConfig, null, 4);
         const buf = Buffer.from(jsn, "utf8");
         //interaction.send(buf)
@@ -67,7 +67,7 @@ async function updateConfig(interaction) {
         return;
     }
 
-    await dbSetConfig(config);
+    botConfig.updateConfig(config);
     const formattedConfig = JSON.stringify(config, null, 4);
 
     interaction.reply(`Successfully updated the config! Affected config(s) : \n\`\`\`json\n${formattedConfig}\`\`\``, {

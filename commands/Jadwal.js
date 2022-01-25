@@ -1,6 +1,6 @@
 const { CommandInteraction } = require("discord.js");
 const { JadwalEmbed } = require("../util/CommandEmbed");
-const { dbFindConfig } = require("../util/DatabaseHandler/ConfigHandler");
+const { botConfig } = require("../util/DatabaseHandler/ConfigHandler");
 
 /**
  * @param {CommandInteraction} interaction - User interaction
@@ -8,9 +8,8 @@ const { dbFindConfig } = require("../util/DatabaseHandler/ConfigHandler");
 async function jadwal(interaction) {
     // TODO: use proper userConcentration on the next semester (semester 4)
     const userConcentration = "all";
-    const semester = 3;
-
-    const jadwalData = (await dbFindConfig()).jadwal;
+    const semester = botConfig.currentSemester;
+    const jadwalData = botConfig.jadwal;
 
     interaction.reply(JadwalEmbed(jadwalData, semester, userConcentration));
 }

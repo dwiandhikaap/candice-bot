@@ -1,6 +1,6 @@
 const { CommandInteraction } = require("discord.js");
 const { StudentGroupEmbed } = require("../util/CommandEmbed");
-const { dbFindConfig } = require("../util/DatabaseHandler/ConfigHandler");
+const { botConfig } = require("../util/DatabaseHandler/ConfigHandler");
 const { shuffleMhsGroup } = require("../util/Util");
 
 /**
@@ -10,7 +10,7 @@ async function group(interaction) {
     const user = interaction.user;
     const isByStudent = interaction.options.getBoolean("student");
     const count = interaction.options.getInteger("count");
-    const mhsData = (await dbFindConfig()).mahasiswa;
+    const mhsData = botConfig.mahasiswa;
     const buttonIdTag = new Date().getTime().toString();
 
     const group = shuffleMhsGroup(mhsData, isByStudent, count);
