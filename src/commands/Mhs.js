@@ -7,9 +7,10 @@ const { sortMhs } = require("../util/Util");
  * @param {CommandInteraction} interaction - User interaction
  */
 async function mhs(interaction) {
+    const guildIconURL = interaction.guild.iconURL();
     const mhsData = botConfig.mahasiswa;
     const sortedMhsData = sortMhs(mhsData);
-    const mhsEmbed = MhsEmbed(sortedMhsData);
+    const mhsEmbed = MhsEmbed(sortedMhsData, guildIconURL);
     interaction.reply(mhsEmbed);
 }
 

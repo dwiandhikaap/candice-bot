@@ -1,6 +1,8 @@
 const { MessageEmbed } = require("discord.js");
+const { client } = require("../client/client");
 
-function InfoEmbed(nodeJsVersion, discordJsVersion, mongoDBInfo, botInfo, clientAvatarUrl) {
+function InfoEmbed(nodeJsVersion, discordJsVersion, mongoDBInfo, botInfo) {
+    const clientAvatarUrl = client.user.avatarURL();
     const embed = new MessageEmbed()
         .setThumbnail(clientAvatarUrl)
         .setColor("#4278f5")

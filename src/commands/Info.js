@@ -6,9 +6,8 @@ const { dbInfo } = require("../DatabaseHandler/MainDatabase");
 
 /**
  * @param {CommandInteraction} interaction - User interaction
- * @param {Client} client - User interaction
  */
-async function info(interaction, client) {
+async function info(interaction) {
     const nodeJsVersion = process.version;
     const discordJsVersion = discordJsPackage.version;
     const mongoDBInfo = await dbInfo();
@@ -18,9 +17,8 @@ async function info(interaction, client) {
         version: appPackage.version,
         uptime: secondsToDhms(process.uptime()),
     };
-    const clientAvatarUrl = client.user.displayAvatarURL();
 
-    const reply = InfoEmbed(nodeJsVersion, discordJsVersion, mongoDBInfo, botInfo, clientAvatarUrl);
+    const reply = InfoEmbed(nodeJsVersion, discordJsVersion, mongoDBInfo, botInfo);
     await interaction.reply(reply);
 }
 

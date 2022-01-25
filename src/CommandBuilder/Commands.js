@@ -165,15 +165,14 @@ async function createCommands(guilds){
 
 /**
 * @param {Interaction} interaction User message
-* @param {Client} client This bot's client object
 */
-async function interactionHandler(interaction, client){
+async function interactionHandler(interaction){
     if (interaction.isCommand()){
         const { commandName } = interaction;
 
         switch(commandName){
             case 'info':{
-                await info(interaction, client);
+                await info(interaction);
                 break;
             }
 

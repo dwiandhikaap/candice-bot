@@ -12,22 +12,23 @@ async function group(interaction) {
     const count = interaction.options.getInteger("count");
     const mhsData = botConfig.mahasiswa;
     const buttonIdTag = new Date().getTime().toString();
+    const guildIconURL = interaction.guild.iconURL();
 
     const group = shuffleMhsGroup(mhsData, isByStudent, count);
-    const groupEmbed = StudentGroupEmbed(group, buttonIdTag);
+    const groupEmbed = StudentGroupEmbed(group, buttonIdTag, guildIconURL);
 
     const filter = (btnInteraction) => {
         return btnInteraction.user.id === user.id && btnInteraction.customId == "rerollBtn" + buttonIdTag;
     };
 
-    const commandData = { interaction, mhsData, isByStudent, count, filter, buttonIdTag };
+    const commandData = { interaction, guildIconURL, mhsData, isByStudent, count, filter, buttonIdTag };
 
     interaction.reply(groupEmbed);
     interactionHandler(commandData);
 }
 
 async function interactionHandler(param) {
-    const { interaction, mhsData, isByStudent, count, filter, buttonIdTag } = param;
+    const { interaction, guildIconURL, mhsData, isByStudent, count, filter, buttonIdTag } = param;
 
     const collector = interaction.channel.createMessageComponentCollector({ filter, max: 1, time: 10000 });
 
@@ -44,7 +45,7 @@ async function interactionHandler(param) {
 
         if (buttonInteraction.first().customId == "rerollBtn" + buttonIdTag) {
             const group = shuffleMhsGroup(mhsData, isByStudent, count);
-            const groupEmbed = StudentGroupEmbed(group, buttonIdTag);
+            const groupEmbed = StudentGroupEmbed(group, buttonIdTag, guildIconURL);
 
             await interaction.editReply(groupEmbed);
             interactionHandler(param);

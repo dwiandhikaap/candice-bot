@@ -1,16 +1,12 @@
 require("dotenv").config();
 require("./src/CommandBuilder/Commands");
 
-const Discord = require("discord.js");
 const { createCommands, interactionHandler } = require("./src/CommandBuilder/Commands");
-const client = new Discord.Client({
-    intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"],
-    partials: ["CHANNEL"],
-});
 const { dbInit } = require("./src/DatabaseHandler/MainDatabase");
 const { dbLoadChannel } = require("./src/DatabaseHandler/PresensiChannelHandler");
 const { messageHandler } = require("./src/commands/PresensiChannelHandler");
 const { botConfig } = require("./src/DatabaseHandler/ConfigHandler");
+const { client } = require("./src/client/client");
 
 async function clientStart() {
     await dbInit();
@@ -40,7 +36,7 @@ client.on("messageCreate", async (message) => {
 });
 
 client.on("interactionCreate", async (interaction) => {
-    await interactionHandler(interaction, client);
+    await interactionHandler(interaction);
 });
 
 clientStart();
