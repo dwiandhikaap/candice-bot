@@ -87,6 +87,17 @@ async function updateConfig(interaction) {
             }
             break;
         }
+
+        default: {
+            try {
+                const parsedValue = JSON.parse(value);
+                botConfig.set(key, parsedValue);
+            } catch (err) {
+                interaction.reply("Invalid mahasiswa list format! Use minified JSON!");
+                return;
+            }
+            break;
+        }
     }
 
     const affectedConfig = JSON.stringify({ [key]: value }, null, 4);

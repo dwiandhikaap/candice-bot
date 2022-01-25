@@ -103,28 +103,22 @@ const commands = [
                 .setRequired(true)))
         .addSubcommand(subcommand => subcommand
             .setName('logout')
-            .setDescription('Unlink your Discord account from the developer status')
-        )
+            .setDescription('Unlink your Discord account from the developer status'))
         .addSubcommand(subcommand => subcommand
             .setName('config')
             .setDescription('Configure candice-bot settings')
             .addStringOption(key => key
                 .setName("key")
                 .setDescription("Key to configure (Example: currentSemester)")
-                .setRequired(true)
-                .addChoices([
-                    ["All", "all"],
-                    ["Semester", "currentSemester"],
-                    ["Year", "currentYear"],
-                    ["Jadwal", "jadwal"],
-                    ["Mahasiswa", "mahasiswa"],
-                ]))
+                .setRequired(true))
             .addStringOption(value => value
                 .setName("value")
                 .setDescription("Value to configure, based on the key (Example: '2021/2022')")
-                .setRequired(false))
-            
-        ),
+                .setRequired(false)))
+        .addSubcommand(subcommand => subcommand
+            .setName('suspanel')
+            .setDescription('Show the impostor panel')),
+
     new SlashCommandBuilder()
         .setName('mhs')
         .setDescription('Show all the students name and nim'),

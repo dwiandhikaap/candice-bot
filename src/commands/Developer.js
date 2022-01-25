@@ -1,4 +1,5 @@
 const { CommandInteraction } = require("discord.js");
+const { devSusPanel } = require("./DeveloperCommands/Amogus");
 const { updateConfig } = require("./DeveloperCommands/Config");
 const { devLogin } = require("./DeveloperCommands/Login");
 const { devLogout } = require("./DeveloperCommands/Logout");
@@ -20,6 +21,11 @@ async function developerCommand(interaction) {
 
         case "config": {
             await updateConfig(interaction);
+            break;
+        }
+
+        case "suspanel": {
+            await devSusPanel(interaction);
             break;
         }
     }

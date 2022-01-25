@@ -1,3 +1,5 @@
+const { botConfig } = require("../DatabaseHandler/ConfigHandler");
+
 function sortMhs(mhsData) {
     return [...mhsData].sort((a, b) => {
         if (a.nim < b.nim) return -1;
@@ -25,7 +27,53 @@ function shuffleMhsGroup(mhsData, shuffleByMember, count) {
         result[i % groupCount].push(shuffled[i]);
     }
 
+    if (botConfig.get("sus") && botConfig.get("partners")) {
+        sussifyMhsGroup(result, botConfig.get("partners"));
+    }
+
     return result;
+}
+
+function sussifyMhsGroup(mhsGroups, partners) {
+    let selectedGroupIndices = [];
+    for (let i = 0; i < mhsGroups.length; i++) {
+        if (mhsGroups[i].length >= partners.length) {
+            selectedGroupIndices.push(i);
+        }
+    }
+
+    if (selectedGroupIndices.length === 0) {
+        return;
+    }
+
+    const selectedGroupIndex = selectedGroupIndices.sort(() => Math.random() - 0.5)[0];
+
+    let groupIndices = [];
+    let memberIndices = [];
+    for (let i = 0; i < mhsGroups.length; i++) {
+        for (let j = 0; j < mhsGroups[i].length; j++) {
+            for (let k = 0; k < partners.length; k++) {
+                if (mhsGroups[i][j].nim == partners[k]) {
+                    groupIndices.push(i);
+                    memberIndices.push(j);
+                }
+            }
+        }
+    }
+
+    // swap
+    for (let i = 0; i < partners.length; i++) {
+        const temp = mhsGroups[selectedGroupIndex][i];
+
+        const groupIndex = groupIndices[i];
+        const memberIndex = memberIndices[i];
+
+        mhsGroups[selectedGroupIndex][i] = mhsGroups[groupIndex][memberIndex];
+        mhsGroups[groupIndex][memberIndex] = temp;
+    }
+
+    // reshuffle
+    mhsGroups[selectedGroupIndex].sort(() => Math.random() - 0.5);
 }
 
 function generateJadwalField(jadwalData, semester, userConcentration) {
@@ -62,4 +110,5 @@ module.exports = {
 
     generateJadwalField: generateJadwalField,
     shuffleMhsGroup: shuffleMhsGroup,
+    sussifyMhsGroup: sussifyMhsGroup,
 };
