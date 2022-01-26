@@ -7,8 +7,13 @@ const { AmogusEmbed } = require("../../Embeds/AmogusEmbed");
  */
 async function devSusPanel(interaction) {
     const user = interaction.user;
-    const buttonIdTag = new Date().getTime().toString();
 
+    if (!(await dbIsUserDev(user.id))) {
+        interaction.reply("You're not the developer!");
+        return;
+    }
+
+    const buttonIdTag = new Date().getTime().toString();
     const currentStatus = botConfig.get("sus");
     const embed = AmogusEmbed(currentStatus, buttonIdTag);
 
