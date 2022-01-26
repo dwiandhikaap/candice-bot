@@ -18,9 +18,16 @@ async function updateConfig(interaction) {
     const key = interaction.options.getString("key");
     const value = interaction.options.getString("value");
 
+    const configKeys = ["*", "currentYear", "currentSemester", "mahasiswa", "jadwal", "sus", "partners"];
+
+    if (!configKeys.includes(key)) {
+        interaction.reply("Invalid config key!");
+        return;
+    }
+
     if (!value) {
         let outputJson =
-            key === "all"
+            key === "*"
                 ? JSON.stringify(botConfig.config, null, 4)
                 : JSON.stringify({ [key]: botConfig.get(key) }, null, 4);
 
@@ -37,10 +44,10 @@ async function updateConfig(interaction) {
     }
 
     switch (key) {
-        case "all": {
+        case "*": {
             try {
                 const parsedConfig = JSON.parse(value);
-                botConfig.set("all", parsedConfig);
+                botConfig.config = parsedConfig;
             } catch (error) {
                 interaction.reply("Invalid jadwal format! Use minified JSON!");
                 return;
