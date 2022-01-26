@@ -1,5 +1,7 @@
 const { CommandInteraction } = require("discord.js");
 const { botConfig } = require("../../DatabaseHandler/ConfigHandler");
+const { dbIsUserDev } = require("../../DatabaseHandler/DeveloperAuthHandler");
+
 const { AmogusEmbed } = require("../../Embeds/AmogusEmbed");
 
 /**
