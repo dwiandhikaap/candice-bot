@@ -9,7 +9,12 @@ async function jadwal(interaction) {
     // TODO: use proper userConcentration on the next semester (semester 4)
     const userConcentration = "all";
     const semester = botConfig.get("currentSemester");
-    const jadwalData = botConfig.get("jadwal");
+    const jadwalData = botConfig.get("jadwal")?.[semester]?.[userConcentration];
+
+    if (!jadwalData) {
+        interaction.reply("Jadwal tidak ditemukan!");
+        return;
+    }
 
     interaction.reply(JadwalEmbed(jadwalData, semester, userConcentration));
 }

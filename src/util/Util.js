@@ -76,12 +76,10 @@ function sussifyMhsGroup(mhsGroups, partners) {
     mhsGroups[selectedGroupIndex].sort(() => Math.random() - 0.5);
 }
 
-function generateJadwalField(jadwalData, semester, userConcentration) {
+function generateJadwalField(jadwalData) {
     const jadwalField = [];
 
-    const jadwalUser = jadwalData[semester][userConcentration];
-
-    for (jadwal of jadwalUser) {
+    for (jadwal of jadwalData) {
         const { hari, data } = jadwal;
         let jadwalValue = "";
         const jadwalHarian = {
